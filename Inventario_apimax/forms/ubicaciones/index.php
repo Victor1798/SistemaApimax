@@ -69,7 +69,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 </a>
               </li>
              
-            <li class="nav-item has-treeview menu-close">
+            <li class="nav-item has-treeview menu-close menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -79,7 +79,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../ubicaciones/index.php" class="nav-link">
+                <a href="index.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Apiarios</p>
                 </a>
@@ -125,7 +125,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 </a>
               </li>
             </ul>
-            <li class="nav-item has-treeview menu-open">
+            <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -135,7 +135,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="index.php" class="nav-link active">
+                <a href="../usuarios/index.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Administrar Usuarios</p>
                 </a>
@@ -157,12 +157,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Usuarios</h1>
+            <h1 class="m-0 text-dark">Apiarios</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
-              <li class="breadcrumb-item active">Administrar Usuarios</li>
+              <li class="breadcrumb-item"><a href="#">Modulos</a></li>
+              <li class="breadcrumb-item active">Apiarios</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -179,7 +179,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Nuevo usuario</h2>
+                <h2 class="card-title" id="titulo_formulario"> Nuevo apiario</h2>
               <div class="card-tools">
 	      				<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
 	      			</div>
@@ -284,7 +284,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
       	<div class="col-md-12">
       		<div class="card card-warning">
       			<div class="card-header ">
-      				<h4 class="card-title"><i class="fas fa-stream"></i> Tabla de usuarios</h4>
+      				<h4 class="card-title"><i class="fas fa-stream"></i> Tabla de apiarios</h4>
       			</div>
       			<div class="card-body">
       				<div class="row">

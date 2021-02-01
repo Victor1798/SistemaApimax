@@ -21,7 +21,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="index.php" class="nav-link">Inicio</a>
+        <a href="../principal/index.php" class="nav-link">Inicio</a>
       </li>
     </ul>
     <!-- Right navbar links -->
@@ -40,7 +40,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
       <img src="../../dist/img/logo_apimax.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light"> APIMAX</span>
+      <span class="brand-text font-weight-light"><b> APIMAX</b></span>
     </a>
 
     <!-- Sidebar -->
@@ -63,13 +63,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
                with font-awesome or any other icon font library -->
           
               <li class="nav-item">
-                <a href="index.php" class="nav-link active">
+                <a href="../principal/index.php" class="nav-link">
                   <i class="nav-icon fas fa-home"></i>
-                  <p>Menu Principal</p>
+                  <p>Menú Principal</p>
                 </a>
               </li>
              
-            <li class="nav-item has-treeview menu-close">
+            <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -79,19 +79,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../ubicaciones/index.php" class="nav-link">
+                <a href="../ubicaciones/index.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Apiarios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../tipos_miel/index.php" class="nav-link">
+                <a href="index.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tipos de Miel</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index3.html" class="nav-link">
+                <a href="./index3.html" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dashboard v3</p>
                 </a>
@@ -135,11 +135,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="../usuarios/index.php" class="nav-link">
+                <a href="../usuarios/index.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Administrar Usuarios</p>
                 </a>
               </li>
+             
              
             </ul>
             
@@ -157,12 +158,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Menú principal</h1>
+            <h1 class="m-0 text-dark">Tipos de Miel</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Menú Principal</a></li>
-              <!-- <li class="breadcrumb-item active"></li> -->
+              <li class="breadcrumb-item"><a href="#">Modulos</a></li>
+              <li class="breadcrumb-item active">Tipos de Miel</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -172,86 +173,131 @@ include '../../seguridad/verificar_sesion_inicio.php';
 
     <!-- Main content -->
     <section class="content">
-      <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>150</h3>
+    <div class="container-fluid">
 
-                <p>New Orders</p>
+        <!-- div de columnas -->
+        <div class="col-sm-12 col-md-12 col-lg-12">
+            <!-- general form elements -->
+            <div class="card card-warning">
+              <div class="card-header">
+                <h2 class="card-title" id="titulo_formulario"> Nuevo tipo de miel</h2>
+              <div class="card-tools">
+	      				<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+	      			</div>
+            </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div id="formTipoMiel" class="card-body">              
+              <form action="#" method="POST" id="frmTipoMiel" data-action="agregar">
+              <input type="hidden" name="id_tipo_miel" id="id_tipo_miel">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="form-group col-sm-12 col-md-12">
+                        <label for="tipo_miel">Tipo de miel:</label>
+                        <input type="text" class="form-control" id="tipo_miel" name="tipo_miel" placeholder="Ingresa el tipo de miel..." required>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                  <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
+                </div>
+              </form>
               </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
             </div>
           </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>44</h3>
+          <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
+      	<div class="col-md-12">
+      		<div class="card card-warning">
+      			<div class="card-header ">
+      				<h4 class="card-title"><i class="fas fa-stream"></i> Tabla de tipos de miel</h4>
+      			</div>
+      			<div class="card-body">
+      				<div class="row">
+                <div class="col-md-12">
+                  <div class="table-responsive">
+                  <div class="col-md-7">
+                  
+                  </div>
+                    <div class="input-group mb-3 col-md-5 float-right">
+                      <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-search"></span>
+                        </div>
+                      </div>
+                    </div>
 
-                <p>User Registrations</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>65</h3>
-
-                <p>Unique Visitors</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
+                  <!-- <div class="form-group">
+                    <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
+                  </div>    -->
+                    <table id="tabla_tipo_miel" class="table table-bordered table-striped">
+                      <thead class="text-center">
+                        <tr>
+                          <th>#</th>
+                          <th>Tipo de miel</th>
+                          <th>Estado</th>
+                          <th>Editar</th>
+                          <th>Eliminar</th>                        
+                          </tr>
+                      </thead>
+                      <tbody class="" id="cuerpo_tabla">
+                        
+                      </tbody>
+                      <tfoot class="text-center" >
+                        <tr>
+                          <th>#</th>
+                          <th>Tipo de miel</th>
+                          <th>Estado</th>
+                          <th>Editar</th>
+                          <th>Eliminar</th>
+                          </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+      				</div>
+      			</div>
+      		</div>
         </div>
-        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-  <div class="float-right d-none d-sm-inline-block">
+    <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
     </div>
   </footer>
 
 </div>
 <!-- ./wrapper -->
-
 <?php include '../../scripts.php'; ?>
+
+<script type="text/javascript" src="funciones.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(e){
+        llenar_tabla(); 
+    });
+</script>
+
+<script>
+ $(document).ready(function(){
+    $("#search").keyup(function(){
+      _this = this;
+        $.each($("#tabla_tipo_miel tbody tr"), function() {
+          if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+            $(this).hide();
+          else
+            $(this).show();
+        });
+    });
+});
+</script>
 
 </body>
 </html>

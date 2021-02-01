@@ -1,6 +1,6 @@
 <?php
   include "../../conexion/conexion.php";
-  include "../../seguridad/verificar_sesion_login.php";
+  // include "../../seguridad/verificar_sesion_login.php";
 ?>
 
 <!DOCTYPE html>
