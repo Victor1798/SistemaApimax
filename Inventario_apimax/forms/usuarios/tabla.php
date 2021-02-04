@@ -1,7 +1,7 @@
 <?php
 include '../../conexion/conexion.php';
 
-$datos = $conexion->prepare("SELECT id_usuario, nombre, ap_paterno, ap_materno, fecha_nac, correo, direccion, telefono, usuario, activo FROM usuarios ORDER BY id_usuario");
+$datos = $conexion->prepare("SELECT id_usuario, nombre, ap_paterno, ap_materno, fecha_nac, correo, direccion, telefono, usuario, pass, tipo_usuario, activo FROM usuarios ORDER BY id_usuario");
 
 try
 {
@@ -17,7 +17,11 @@ try
         $direccion = $row[6];
         $telefono = $row[7];
         $usuario = $row[8];
-        $activo = $row[9];
+        $pass = $row[9];
+        $re_pass = $row[9];
+        $tipo_usuario = $row[10];
+
+        $activo = $row[11];
         $estado = ($activo == 1 ? "Activado":"Desactivado")
         ?>
         <tr id ="usuario_<?php echo $id_usuario;?>">
@@ -27,12 +31,15 @@ try
             <td class="text-center ap_materno"><?php echo $ap_materno;?></td>
             <td class="text-center fecha_nac"><?php echo $fecha_nac;?></td>
             <td class="text-center correo"><?php echo $correo;?></td>
-            <td class="text-center direccion"><?php echo $direccion;?></td> -->
+            <td class="text-center direccion"><?php echo $direccion;?></td>
             <td class="text-center telefono"><?php echo $telefono;?></td>
+            <td class="text-center tipo_usuario"><?php echo $tipo_usuario;?></td>
             <td class="text-center usuario"><?php echo $usuario;?></td>
+            <td class="text-center pass"><?php echo $pass;?></td>
+            <td class="text-center re_pass" hidden><?php echo $re_pass;?></td>
             <td class="text-center"><a href="estado.php?id_usuario=<?php echo $id_usuario;?>&estado=<?php echo $activo;?>" class="btn btn-secondary"><?php echo $estado;?></a></td>
             <td class="text-center"><a href="javascript:editar(<?php echo $id_usuario;?>)" class="btn btn-info"><i class="fas fa-pencil-alt"></i></a></td>
-            <td class="text-center"><a href="eliminar.php?id_usuario=<?php echo $id_usuario;?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
+            <!-- <td class="text-center"><a href="eliminar.php?id_usuario=<?php echo $id_usuario;?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td> -->
         </tr>
         <?php
     }

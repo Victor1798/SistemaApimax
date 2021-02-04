@@ -32,7 +32,6 @@ try
             <td class="text-center usuario"><?php echo $usuario;?></td>
             <td class="text-center"><a href="estado.php?id_usuario=<?php echo $id_usuario;?>&estado=<?php echo $activo;?>" class="btn btn-secondary"><?php echo $estado;?></a></td>
             <td class="text-center"><a href="javascript:editar(<?php echo $id_usuario;?>)" class="btn btn-info"><i class="fas fa-pencil-alt"></i></a></td>
-            <td class="text-center"><a href="eliminar.php?id_usuario=<?php echo $id_usuario;?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
         </tr>
         <?php
     }

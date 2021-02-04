@@ -9,7 +9,7 @@ try {
 	$p_user = $_POST['nombre_usuario'];
 	$p_contra = $_POST['pass'];
 	$contraseña = $p_contra;
-	$consulta_usuario = $conexion->prepare("SELECT id_usuario, usuario, pass, nombre, ap_paterno,  activo FROM usuarios WHERE usuario = '$p_user' AND pass = '$contraseña' AND activo = '1'");
+	$consulta_usuario = $conexion->prepare("SELECT id_usuario, usuario, pass, nombre, ap_paterno, tipo_usuario, activo FROM usuarios WHERE usuario = '$p_user' AND pass = '$contraseña' AND activo = '1'");
 	$consulta_usuario->execute();
 
 	$row_usuario = $consulta_usuario->fetch(PDO::FETCH_NUM);
@@ -24,6 +24,7 @@ try {
 		$_SESSION["apimax_usuario"] = $row_usuario[1];
 		$_SESSION["apimax_contraseña"] = $row_usuario[2];
 		$_SESSION["apimax_nombre_persona"] = $full_name;
+		$_SESSION["apimax_tipo_usuario"] = $row_usuario[5];
 		$_SESSION["apimax_autenticado"] = "SI";
 		
 		echo "2";

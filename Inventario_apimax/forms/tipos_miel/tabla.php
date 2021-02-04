@@ -18,7 +18,6 @@ try
             <td class="text-center tipo_miel"><?php echo $tipo_miel;?></td>
             <td class="text-center"><a href="estado.php?id_tipo_miel=<?php echo $id_tipo_miel;?>&estado=<?php echo $activo;?>" class="btn btn-secondary"><?php echo $estado;?></a></td>
             <td class="text-center"><a href="javascript:editar(<?php echo $id_tipo_miel;?>)" class="btn btn-info"><i class="fas fa-pencil-alt"></i></a></td>
-            <td class="text-center"><a href="eliminar.php?id_tipo_miel=<?php echo $id_tipo_miel;?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
         </tr>
         <?php
     }

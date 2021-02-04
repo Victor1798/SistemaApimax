@@ -5,17 +5,6 @@ $("#frmUsuarios").submit(function(e){
     var contra = $("#pass").val();
     var contra2 = $("#re_pass").val();
 
-    // var nombre = $("#nombre").val();
-    // var ap_paterno = $("#ap_paterno").val();
-    // var ap_materno = $("#ap_materno").val();
-    // var fecha_nac = $("#fecha_nac").val();
-    // var direccion = $("#direccion").val();
-    // var correo = $("#correo").val();
-    // var telefono = $("#telefono").val();
-    // var usuario = $("#usuario").val();
-    // var pass = $("#pass").val();
-    // alert(nombre+' - '+ ap_paterno+' - '+ ap_materno+' - '+ fecha_nac+' - '+ direccion+' - '+ correo+' - '+ telefono+' - '+ usuario+' - '+ pass);
-
     if (contra == contra2) {
         if(accion == "agregar")
         {
@@ -111,7 +100,10 @@ function editar(id_usuario)
     var correo = $(fila).find(".correo").html();
     var telefono = $(fila).find(".telefono").html();
     var usuario = $(fila).find(".usuario").html();
+    var tipo_user = $(fila).find(".tipo_usuario").html();
     var pass = $(fila).find(".pass").html();
+    var re_pass = $(fila).find(".re_pass").html();
+
 
     $("#nombre").val(nombre);
     $("#ap_paterno").val(ap_paterno);
@@ -121,8 +113,9 @@ function editar(id_usuario)
     $("#correo").val(correo);
     $("#telefono").val(telefono);
     $("#usuario").val(usuario);
+    $("#tipo_user").val(tipo_user);
     $("#pass").val(pass);
-
+    $("#re_pass").val(re_pass);
     $("#id_usuario").val(id_usuario);
     $("#frmUsuarios").attr("data-action","editar");
 
@@ -136,3 +129,20 @@ function cancelar()
     $("#frmUsuarios").attr("data-action","agregar");
     $().val("");
 }
+
+// function estado_color()
+// {
+//     var color_estado = $('#btn-estado').text();
+//     alert(color_estado);
+
+//     if (color_estado != "Activado") {
+//         $("#btn-estado").removeClass('btn-primary');
+//         $("#btn-estado").addClass('btn-secondary');
+//     }
+//     else {
+//         $("#btn-estado").removeClass('btn-secondary');
+//         $("#btn-estado").addClass('btn-primary');
+//     } 
+// }
+
+

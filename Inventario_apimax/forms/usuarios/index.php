@@ -53,6 +53,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="info">
           <!-- <a href="#" class="d-block">Nombre usuario</a> -->
           <a href="#" class="d-block"><?php echo $_SESSION["apimax_nombre_persona"]; ?></a>
+          <span id="tipo_user" class="d-block text-warning"><?php echo $_SESSION["apimax_tipo_usuario"]; ?></span>
+
         </div>
       </div>
 
@@ -236,6 +238,15 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </div>
                   <hr>
                   <div class="row">
+                    <div class="form-group col-sm-12 col-md-4">
+                        <label for="tipo_user">Tipo de usuario</label>
+                        <select id="tipo_user" name="tipo_user" class="form-control" required title="Solo el tipo de usuario de Administrador puede accesar al modulo de Usuarios">
+                        <option value="Administrador">Administrador</option>
+                        <option value="Basico">Basico</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
                         <div class="form-group col-sm-12 col-md-4">
                           <label for="usuario">Usuario:</label>
                           <div class="input-group">
@@ -267,6 +278,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
                             <input type="password" id="re_pass" name="re_pass" class="form-control" placeholder="Repite la contraseña..." required>
                           </div>
                       </div>
+                  </div>
+                  
                   </div>
                 </div>
                 <!-- /.card-body -->
@@ -308,18 +321,20 @@ include '../../seguridad/verificar_sesion_inicio.php';
                     <table id="tabla_usuarios" class="table table-bordered table-striped">
                       <thead class="text-center">
                         <tr>
-                          <th>#</th>
-                          <th>Nombre</th>
-                          <th>Apellido paterno</th>
-                          <th>Apellido materno</th>
-                          <th>Fecha nacimiento</th>
-                          <th>Correo</th>
-                          <th>Dirección</th>
-                          <th>Telefono</th>
-                          <th>Usuario</th>
-                          <th>Estado</th>
-                          <th>Editar</th>
-                          <th>Eliminar</th>                        
+                          <th class="bg-gradient-warning">#</th>
+                          <th class="bg-gradient-warning">Nombre</th>
+                          <th class="bg-gradient-warning">Apellido paterno</th>
+                          <th class="bg-gradient-warning">Apellido materno</th>
+                          <th class="bg-gradient-warning">Fecha nacimiento</th>
+                          <th class="bg-gradient-warning">Correo</th>
+                          <th class="bg-gradient-warning">Dirección</th>
+                          <th class="bg-gradient-warning">Telefono</th>
+                          <th class="bg-gradient-warning">Tipo usuario</th>
+                          <th class="bg-gradient-warning">Usuario</th>
+                          <th class="bg-gradient-warning">Contraseña</th>
+                          <th class="bg-gradient-warning" hidden>Rep contraseña</th>
+                          <th class="bg-gradient-warning">Estado</th>
+                          <th class="bg-gradient-warning">Editar</th>
                           </tr>
                       </thead>
                       <tbody class="" id="cuerpo_tabla">
@@ -327,18 +342,20 @@ include '../../seguridad/verificar_sesion_inicio.php';
                       </tbody>
                       <tfoot class="text-center" >
                         <tr>
-                          <th>#</th>
-                          <th>Nombre</th>
-                          <th>Apellido paterno</th>
-                          <th>Apellido materno</th>
-                          <th>Fecha nacimiento</th>
-                          <th>Correo</th>
-                          <th>Dirección</th>
-                          <th>Telefono</th>
-                          <th>Usuario</th>
-                          <th>Estado</th>
-                          <th>Editar</th>
-                          <th>Eliminar</th>
+                          <th class="bg-gradient-warning">#</th>
+                          <th class="bg-gradient-warning">Nombre</th>
+                          <th class="bg-gradient-warning">Apellido paterno</th>
+                          <th class="bg-gradient-warning">Apellido materno</th>
+                          <th class="bg-gradient-warning">Fecha nacimiento</th>
+                          <th class="bg-gradient-warning">Correo</th>
+                          <th class="bg-gradient-warning">Dirección</th>
+                          <th class="bg-gradient-warning">Telefono</th>
+                          <th class="bg-gradient-warning">Tipo usuario</th>
+                          <th class="bg-gradient-warning">Usuario</th>
+                          <th class="bg-gradient-warning">Contraseña</th>
+                          <th class="bg-gradient-warning" hidden>Rep contraseña</th>
+                          <th class="bg-gradient-warning">Estado</th>
+                          <th class="bg-gradient-warning">Editar</th>
                           </tr>
                       </tfoot>
                     </table>
@@ -366,7 +383,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
 <script type="text/javascript" src="funciones.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        llenar_tabla(); 
+        llenar_tabla();
+
+        // var color_estado = $('#btn-estado').text();
+        // alert(color_estado);
+
+        // if (color_estado != "Activado") {
+        //     $("#btn-estado").removeClass('btn-primary');
+        //     $("#btn-estado").addClass('btn-secondary');
+        // }
+        // else {
+        //     $("#btn-estado").removeClass('btn-secondary');
+        //     $("#btn-estado").addClass('btn-primary');
+        // } 
     });
 </script>
 

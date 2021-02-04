@@ -97,3 +97,4 @@ function cancelar()
     $("#frmTipoMiel").attr("data-action","agregar");
     $().val("");
 }
+

@@ -53,6 +53,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="info">
           <!-- <a href="#" class="d-block">Nombre usuario</a> -->
           <a href="#" class="d-block"><?php echo $_SESSION["apimax_nombre_persona"]; ?></a>
+          <span id="tipo_user" class="d-block text-warning"><?php echo $_SESSION["apimax_tipo_usuario"]; ?></span>
+
         </div>
       </div>
 
@@ -125,7 +127,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 </a>
               </li>
             </ul>
-            <li class="nav-item has-treeview">
+            <li id="modulo_usuarios" class="nav-item has-treeview" hidden>
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
@@ -319,7 +321,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
                           <th>Usuario</th>
                           <th>Estado</th>
                           <th>Editar</th>
-                          <th>Eliminar</th>                        
                           </tr>
                       </thead>
                       <tbody class="" id="cuerpo_tabla">
@@ -338,7 +339,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
                           <th>Usuario</th>
                           <th>Estado</th>
                           <th>Editar</th>
-                          <th>Eliminar</th>
                           </tr>
                       </tfoot>
                     </table>
@@ -366,7 +366,16 @@ include '../../seguridad/verificar_sesion_inicio.php';
 <script type="text/javascript" src="funciones.js"></script>
 <script type="text/javascript">
     $(document).ready(function(e){
-        llenar_tabla(); 
+        llenar_tabla();
+        var tipo_user = $("#tipo_user").text();
+
+      // alert(tipo_user);
+      if (tipo_user == 'Administrador') {
+        $("#modulo_usuarios").removeAttr("hidden");
+      }
+      else {
+        $("#modulo_usuarios").attr("type","hidden");
+      } 
     });
 </script>
 
