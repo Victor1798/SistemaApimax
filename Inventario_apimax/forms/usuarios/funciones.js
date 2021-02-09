@@ -14,13 +14,12 @@ $("#frmUsuarios").submit(function(e){
         {
             url="actualizar.php";
         }
-    
         $.ajax
         ({
-            url:url, 
-            type:"POST", 
+            url:url,
+            type:"POST",
             dataType:"html",
-            data: $(this).serialize(), 
+            data: $(this).serialize(),
             success:function(respuesta)
             {
                 // alert(respuesta);
@@ -33,8 +32,6 @@ $("#frmUsuarios").submit(function(e){
                     swal.fire("Éxito","Registro editado correctamente :)","success");
                 }
                 accion = $(this).attr("data-action");
-
-
                 $("#titulo_formulario").text(" Nuevo usuario");
 
                 $("#nombre").val("");
@@ -44,10 +41,10 @@ $("#frmUsuarios").submit(function(e){
                 $("#direccion").val("");
                 $("#correo").val("");
                 $("#telefono").val("");
+                $("#tipo_user").val("");
                 $("#usuario").val("");
                 $("#pass").val("");
                 $("#re_pass").val("");
-                
                 $("#id_usuario").val("");
                 $("#frmUsuarios").attr("data-action","agregar");
 
@@ -64,7 +61,6 @@ $("#frmUsuarios").submit(function(e){
     else{
         swal.fire("Lo sentimos","Las contraseñas no coinciden","error");
         $("#re_pass").focus();
-
     }
     e.preventDefault();
     return false;
@@ -78,7 +74,7 @@ function llenar_tabla()
         dataType:"html",
         success:function(tabla)
         {
-          $("#cuerpo_tabla").html(tabla);  
+          $("#cuerpo_tabla").html(tabla);
         },
         error:function(error_tabla)
         {
@@ -100,7 +96,7 @@ function editar(id_usuario)
     var correo = $(fila).find(".correo").html();
     var telefono = $(fila).find(".telefono").html();
     var usuario = $(fila).find(".usuario").html();
-    var tipo_user = $(fila).find(".tipo_usuario").html();
+    var tipo_user = $(fila).find(".tipo_user").html();
     var pass = $(fila).find(".pass").html();
     var re_pass = $(fila).find(".re_pass").html();
 
@@ -116,11 +112,11 @@ function editar(id_usuario)
     $("#tipo_user").val(tipo_user);
     $("#pass").val(pass);
     $("#re_pass").val(re_pass);
+    $("#nombre").focus();
+
     $("#id_usuario").val(id_usuario);
     $("#frmUsuarios").attr("data-action","editar");
 
-    $("#nombre").focus();
-    
 }
 function cancelar()
 {
@@ -129,20 +125,5 @@ function cancelar()
     $("#frmUsuarios").attr("data-action","agregar");
     $().val("");
 }
-
-// function estado_color()
-// {
-//     var color_estado = $('#btn-estado').text();
-//     alert(color_estado);
-
-//     if (color_estado != "Activado") {
-//         $("#btn-estado").removeClass('btn-primary');
-//         $("#btn-estado").addClass('btn-secondary');
-//     }
-//     else {
-//         $("#btn-estado").removeClass('btn-secondary');
-//         $("#btn-estado").addClass('btn-primary');
-//     } 
-// }
 
 

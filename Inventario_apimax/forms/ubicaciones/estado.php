@@ -8,13 +8,9 @@ date_default_timezone_set("America/Monterrey");
 
 $qry_update = $conexion->prepare("UPDATE usuarios SET activo = $nuevo_activo WHERE id_usuario = $id_usuario");
 
-try
-{
+try {
     $qry_update->execute();
     header("Location:index.php");
-}
-catch(PDOException $error)
-{
+} catch (PDOException $error) {
     echo $error->getMessage();
 }
-?>

@@ -14,17 +14,10 @@ $fecha_registro = date("y.m.d");
 
 $activo = 1;
 
-try
-{
+try {
     $qry_insert = $conexion->prepare("INSERT INTO usuarios(nombre, ap_paterno, ap_materno, fecha_nac, direccion, correo, telefono, usuario, pass , fecha_registro, activo)VALUES('$nombre', '$ap_paterno', '$ap_materno', '$fecha_nac', '$direccion', '$correo', '$telefono', '$usuario', '$pass', '$fecha_registro', '$activo')");
-    
     $qry_insert->execute();
     echo "Nuevo usuario: $nombre fue insertado correctamente";
+} catch (PDOException $error) {
+    echo "Ha ocurrido el siguiente error: " . $error->getMessage();
 }
-catch(PDOException $error)
-{
-    echo "Ha ocurrido el siguiente error: ".$error->getMessage();
-}
-
-
-?>

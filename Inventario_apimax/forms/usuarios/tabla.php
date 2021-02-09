@@ -19,7 +19,7 @@ try
         $usuario = $row[8];
         $pass = $row[9];
         $re_pass = $row[9];
-        $tipo_usuario = $row[10];
+        $tipo_user = $row[10];
 
         $activo = $row[11];
         $estado = ($activo == 1 ? "Activado":"Desactivado")
@@ -33,7 +33,7 @@ try
             <td class="text-center correo"><?php echo $correo;?></td>
             <td class="text-center direccion"><?php echo $direccion;?></td>
             <td class="text-center telefono"><?php echo $telefono;?></td>
-            <td class="text-center tipo_usuario"><?php echo $tipo_usuario;?></td>
+            <td class="text-center tipo_user"><?php echo $tipo_user;?></td>
             <td class="text-center usuario"><?php echo $usuario;?></td>
             <td class="text-center pass"><?php echo $pass;?></td>
             <td class="text-center re_pass" hidden><?php echo $re_pass;?></td>
