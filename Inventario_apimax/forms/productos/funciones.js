@@ -25,7 +25,7 @@ $("#frmProductos").submit(function (e) {
 
       $("#producto").val("");
       $("#id_tipo_miel").val();
-      $("#tamano_frasco").val("");
+      $("#id_tamano_frasco").val();
       $("#precio").val("");
 
       $("#id_producto").val("");
@@ -60,19 +60,25 @@ function editar(id_producto) {
   $("#titulo_formulario").text(" Editar producto");
 
   var fila = $("#producto_" + id_producto);
-  var producto = $(fila).find(".producto").html();
   var id_tipo_miel = $("#id_tipo_miel_" + id_producto).val();
-  var tamano_frasco = $(fila).find(".tamano_frasco").html();
+  var id_tamano_frasco = $("#id_tamano_frasco_" + id_producto).val();
+  var producto = $(fila).find(".producto").html();
   var precio = $(fila).find(".precio").html();
 
+
   var num_tipos_miel = document.getElementById("id_tipo_miel").length;
-  for (let i = 1; i <= num_tipos_miel; i++) {
-      $("#id_tipo_miel option[value="+i+"]").removeAttr("selected");
-  }
+    for (let i = 1; i <= num_tipos_miel; i++) {
+        $("#id_tipo_miel option[value="+i+"]").removeAttr("selected");
+    }
+    $("#id_tipo_miel option[value="+id_tipo_miel+"]").attr("selected",true);
+
+    var num_tamanos_frascos = document.getElementById("id_tamano_frasco").length;
+    for (let i = 1; i <= num_tamanos_frascos; i++) {
+        $("#id_tamano_frasco option[value="+i+"]").removeAttr("selected");
+    }
+    $("#id_tamano_frasco option[value="+id_tamano_frasco+"]").attr("selected",true);
 
   $("#producto").val(producto);
-  $("#id_tipo_miel option[value="+id_tipo_miel+"]").attr("selected",true);
-  $("#tamano_frasco").val(tamano_frasco);
   $("#precio").val(precio);
   $("#producto").focus();
 

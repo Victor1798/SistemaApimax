@@ -5,6 +5,9 @@ include '../../seguridad/verificar_sesion_inicio.php';
 $tipos_miel = $conexion->prepare("SELECT id_tipo_miel, tipo_miel FROM tipos_miel WHERE activo = 1");
 $tipos_miel->execute();
 
+$tamanos_frascos = $conexion->prepare("SELECT id_tamano_frasco, tamano_frasco FROM tamanos_frascos WHERE activo = 1");
+$tamanos_frascos->execute();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,7 +70,7 @@ $tipos_miel->execute();
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="../principal/index.php" class="nav-link">
+              <a href="../principal/index.php" class="nav-link ">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
@@ -90,11 +93,17 @@ $tipos_miel->execute();
                 <li class="nav-item">
                   <a href="../tipos_miel/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de Miel</p>
+                    <p>Tipos de miel</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index.php" class="nav-link active">
+                  <a href="../tamanos_frascos/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Tamaños de frascos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../productos/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
                   </a>
@@ -132,15 +141,27 @@ $tipos_miel->execute();
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Usuarios
+                  Personas
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="../personas/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Personas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="../usuarios/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Administrar Usuarios</p>
+                    <p>Usuarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../clientes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Clientes</p>
                   </a>
                 </li>
               </ul>
@@ -210,13 +231,16 @@ $tipos_miel->execute();
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="tamano_frasco">Tipo de usuario</label>
-                        <select id="tamano_frasco" name="tamano_frasco" class="form-control" required title="Selecciona el tamaño del frasco...">
-                          <option value="250 ML">250 ML (1/4)</option>
-                          <option value="500 ML">500 ML (1/2)</option>
-                          <option value="750 ML">750 ML (3/4)</option>
-                          <option value="1 L">1 L</option>
+                    <div class="form-group col-sm-12 col-md-6">
+                        <label for="id_tamano_frasco">Tipo de miel</label>
+                        <select name="id_tamano_frasco" id="id_tamano_frasco" class="form-control" required>
+                          <?php
+                          while ($row = $tamanos_frascos->fetch(PDO::FETCH_NUM)) {
+                          ?>
+                            <option value="<?php echo $row[0]; ?>"> <?php echo $row[1]; ?> </option>
+                          <?php
+                          }
+                          ?>
                         </select>
                       </div>
                       <div class="form-group col-sm-12 col-md-6">
@@ -230,85 +254,84 @@ $tipos_miel->execute();
                       </div>
                     </div>
                   </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                    <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
+                  </div>
+                </form>
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-                <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
-                <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
-              </div>
-              </form>
-            </div>
 
+            </div>
           </div>
-        </div>
-        <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
-        <div class="col-md-12">
-          <div class="card card-warning">
-            <div class="card-header ">
-              <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de productos</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="table-responsive">
-                    <div class="col-md-7">
+          <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header ">
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de productos</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <div class="col-md-7">
 
-                    </div>
-                    <div class="input-group mb-3 col-md-5 float-right">
-                      <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
-                      <div class="input-group-append">
-                        <div class="input-group-text">
-                          <span class="fas fa-search"></span>
+                      </div>
+                      <div class="input-group mb-3 col-md-5 float-right">
+                        <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-search"></span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <!-- <div class="form-group">
+                      <!-- <div class="form-group">
                     <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
                   </div>    -->
-                    <table id="tabla_productos" class="table table-bordered table-striped">
-                      <thead class="text-center">
-                        <tr>
-                          <th class="bg-gradient-warning">#</th>
-                          <th class="bg-gradient-warning">Producto</th>
-                          <th class="bg-gradient-warning">Tipo de miel</th>
-                          <th class="bg-gradient-warning">Tamaño</th>
-                          <th class="bg-gradient-warning">Precio</th>
-                          <th class="bg-gradient-warning">Estado</th>
-                          <th class="bg-gradient-warning">Editar</th>
-                        </tr>
-                      </thead>
-                      <tbody class="" id="cuerpo_tabla">
+                      <table id="tabla_productos" class="table table-bordered table-striped">
+                        <thead class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Tipo de miel</th>
+                            <th class="bg-gradient-warning">Tamaño</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </thead>
+                        <tbody class="" id="cuerpo_tabla">
 
-                      </tbody>
-                      <tfoot class="text-center">
-                        <tr>
-                          <th class="bg-gradient-warning">#</th>
-                          <th class="bg-gradient-warning">Producto</th>
-                          <th class="bg-gradient-warning">Tipo de miel</th>
-                          <th class="bg-gradient-warning">Tamaño</th>
-                          <th class="bg-gradient-warning">Precio</th>
-                          <th class="bg-gradient-warning">Estado</th>
-                          <th class="bg-gradient-warning">Editar</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                        </tbody>
+                        <tfoot class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Tipo de miel</th>
+                            <th class="bg-gradient-warning">Tamaño</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-  </footer>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.0.0
+      </div>
+    </footer>
 
   </div>
   <!-- ./wrapper -->

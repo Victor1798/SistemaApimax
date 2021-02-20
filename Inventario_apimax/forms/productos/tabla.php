@@ -1,9 +1,10 @@
 <?php
 include '../../conexion/conexion.php';
 
-$datos = $conexion->prepare("SELECT p.id_producto, p.producto, t.tipo_miel, p.tamano_frasco, p.precio, p.activo
+$datos = $conexion->prepare("SELECT p.id_producto, p.producto, t.tipo_miel, f.tamano_frasco, p.precio, p.activo, p.id_tipo_miel, p.id_tamano_frasco
 FROM productos p
 INNER JOIN tipos_miel t ON p.id_tipo_miel = t.id_tipo_miel
+INNER JOIN tamanos_frascos f ON p.id_tamano_frasco = f.id_tamano_frasco
 ORDER BY p.id_producto");
 
 try {
@@ -18,7 +19,9 @@ try {
         $estado = ($activo == 1 ? "Activado" : "Desactivado")
 ?>
         <tr id="producto_<?php echo $id_producto; ?>">
-        <input type="hidden" name="id_tipo_miel_<?php echo $id_producto; ?>" id="id_tipo_miel_<?php echo $id_producto; ?>" value="<?php echo $row[2];?>" >
+        <input type="hidden" name="id_tipo_miel_<?php echo $id_producto; ?>" id="id_tipo_miel_<?php echo $id_producto; ?>" value="<?php echo $row[6];?>" >
+        <input type="hidden" name="id_tamano_frasco_<?php echo $id_producto; ?>" id="id_tamano_frasco_<?php echo $id_producto; ?>" value="<?php echo $row[7];?>" >
+
             <td class="text-center id_producto"><?php echo $id_producto; ?></td>
             <td class="text-center producto"><?php echo $producto; ?></td>
             <td class="text-center id_tipo_miel"><?php echo $id_tipo_miel; ?></td>

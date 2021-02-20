@@ -17,7 +17,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index.php" class="nav-link">Inicio</a>
+          <a href="../principal/index.php" class="nav-link">Inicio</a>
         </li>
       </ul>
       <!-- Right navbar links -->
@@ -35,7 +35,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
         <img src="../../dist/img/logo_apimax.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"> APIMAX</span>
+        <span class="brand-text font-weight-light"><b> APIMAX</b></span>
       </a>
       <!-- Sidebar -->
       <div class="sidebar ">
@@ -51,17 +51,18 @@ include '../../seguridad/verificar_sesion_inicio.php';
           </div>
         </div>
         <!-- Sidebar Menu -->
+        <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="index.php" class="nav-link active">
+              <a href="../principal/index.php" class="nav-link ">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
             </li>
-            <li id="modulo_modulos" class="nav-item has-treeview menu-close" hidden>
+            <li id="modulo_modulos" class="nav-item has-treeview menu-open" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -77,19 +78,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../tipos_miel/index.php" class="nav-link">
+                  <a href="../tipos_miel/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de miel</p>
+                    <p>Tipos de Miel</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../tamanos_frascos/index.php" class="nav-link">
+                  <a href="../tamanos_frascos/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tamaños de frascos</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../productos/index.php" class="nav-link">
+                  <a href="../productos/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
                   </a>
@@ -119,7 +120,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 <li class="nav-item">
                   <a href="../salidas_forzosas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Salidas forzosas</p>
+                    <p>Salidas Forzosas</p>
                   </a>
                 </li>
               </ul>
@@ -164,12 +165,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Menú principal</h1>
+              <h1 class="m-0 text-dark">Tamaños de frascos</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Menú Principal</a></li>
-                <!-- <li class="breadcrumb-item active"></li> -->
+                <li class="breadcrumb-item"><a href="#">Modulos</a></li>
+                <li class="breadcrumb-item active">Tamaños de frascos</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -179,109 +180,84 @@ include '../../seguridad/verificar_sesion_inicio.php';
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- Small boxes (Stat box) -->
-          <div id="botones_ventas" class="row">
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Entradas</h4>
-                  <p>Ventas</p>
+          <!-- div de columnas -->
+          <div class="col-sm-12 col-md-12 col-lg-12">
+            <!-- general form elements -->
+            <div class="card card-warning">
+              <div class="card-header">
+                <h2 class="card-title" id="titulo_formulario"> Nuevo tamaño de frasco</h2>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../entradas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <div id="formTamanoFrasco" class="card-body">
+                <form action="#" method="POST" id="frmTamanoFrasco" data-action="agregar">
+                  <input type="hidden" name="id_tamano_frasco" id="id_tamano_frasco">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="form-group col-sm-12 col-md-12">
+                        <label for="tamano_frasco">Tamaño del frasco:</label>
+                        <input type="text" class="form-control" id="tamano_frasco" name="tamano_frasco" placeholder="Ingresa el tamaño del frasco..." required>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                    <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Ventas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../ventas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Salidas forzosas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../salidas_forzosas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
           </div>
-          <!-- Modulos para los usuarios basicos -->
-          <div id="botones_modulos" class="row" hidden>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Apiario</h4>
-                  <p>Modulos</p>
+          <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header ">
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de tamaños de frascos</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <div class="col-md-7">
+                      </div>
+                      <div class="input-group mb-3 col-md-5 float-right">
+                        <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-search"></span>
+                          </div>
+                        </div>
+                      </div>
+                      <table id="tabla_tamano_frasco" class="table table-bordered table-striped">
+                        <thead class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Tamaño de frasco</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </thead>
+                        <tbody class="" id="cuerpo_tabla">
+                        </tbody>
+                        <tfoot class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Tamaño de frasco</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
                 </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../ubicaciones/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Tipo de miel</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../tipos_miel/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Productos</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../productos/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
           </div>
-          <div id="botones_usuarios" class="row" hidden>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h4>Administrar usuarios</h4>
-                  <p>Usuarios</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="../usuarios/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
         </div><!-- /.container-fluid -->
       </section>
       <!-- /.content -->
@@ -292,31 +268,39 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <b>Version</b> 1.0.0
       </div>
     </footer>
-
   </div>
   <!-- ./wrapper -->
   <?php include '../../scripts.php'; ?>
 
   <script type="text/javascript" src="funciones.js"></script>
+  <script type="text/javascript" src="funciones.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {
+
+      llenar_tabla();
+
       var tipo_user = $("#tipo_user").text();
 
       if (tipo_user == 'Administrador') {
         $("#modulo_modulos").removeAttr("hidden");
         $("#modulo_usuarios").removeAttr("hidden");
-        $("#botones_modulos").removeAttr("hidden");
-        $("#botones_usuarios").removeAttr("hidden");
-
-
       } else {
         $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
-        $("#botones_modulos").attr("type", "hidden");
-        $("#botones_usuarios").attr("type", "hidden");
-
-
       }
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      $("#search").keyup(function() {
+        _this = this;
+        $.each($("#tabla_tamano_frasco tbody tr"), function() {
+          if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+            $(this).hide();
+          else
+            $(this).show();
+        });
+      });
     });
   </script>
 

@@ -61,13 +61,15 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="../principal/index.php" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
-                <p>Menú Principal</p>
+                <p>Menu Principal</p>
               </a>
             </li>
-            <li class="nav-item has-treeview menu-close menu-open">
+            <li id="modulo_modulos" class="nav-item has-treeview menu-close" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -77,7 +79,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="index.php" class="nav-link active">
+                  <a href="../ubicaciones/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Apiarios</p>
                   </a>
@@ -89,9 +91,9 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
+                  <a href="../productos/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
+                    <p>Productos</p>
                   </a>
                 </li>
               </ul>
@@ -105,37 +107,49 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="./index.html" class="nav-link">
+                  <a href="../entradas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v1</p>
+                    <p>Entradas</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index2.html" class="nav-link">
+                  <a href="../ventas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v2</p>
+                    <p>Ventas</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="./index3.html" class="nav-link">
+                  <a href="../salidas_forzosas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Dashboard v3</p>
+                    <p>Salidas Forzosas</p>
                   </a>
                 </li>
               </ul>
-            <li id="modulo_usuarios" class="nav-item has-treeview" hidden>
+            <li id="modulo_usuarios" class="nav-item has-treeview menu-open" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Usuarios
+                  Personas
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="../personas/index.php" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Personas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="../usuarios/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Administrar Usuarios</p>
+                    <p>Usuarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../clientes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Clientes</p>
                   </a>
                 </li>
               </ul>
@@ -153,12 +167,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Apiarios</h1>
+              <h1 class="m-0 text-dark">Personas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Modulos</a></li>
-                <li class="breadcrumb-item active">Apiarios</li>
+                <li class="breadcrumb-item"><a href="#">Personas</a></li>
+                <li class="breadcrumb-item active">Personas</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -175,16 +189,16 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Nuevo apiario</h2>
+                <h2 class="card-title" id="titulo_formulario"> Nueva persona</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <div id="formUsuarios" class="card-body">
-                <form action="#" method="POST" id="frmUsuarios" data-action="agregar">
-                  <input type="hidden" name="id_usuario" id="id_usuario">
+              <div id="formPersonas" class="card-body">
+                <form action="#" method="POST" id="frmPersonas" data-action="agregar">
+                  <input type="hidden" name="id_persona" id="id_persona">
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-4">
@@ -230,40 +244,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
                         </div>
                       </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="usuario">Usuario:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
-                          </div>
-                          <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingresa el nombre de usuario..." required>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="pass">Contraseña:</label>
-                        <div class="input-group mb-3">
-                          <div class="input-group-append">
-                            <div class="input-group-text">
-                              <span class="fas fa-lock"></span>
-                            </div>
-                          </div>
-                          <input type="password" id="pass" name="pass" class="form-control" placeholder="Ingresa la contraseña..." required>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="re_pass">Verifica contraseña:</label>
-                        <div class="input-group mb-3">
-                          <div class="input-group-append">
-                            <div class="input-group-text">
-                              <span class="fas fa-lock"></span>
-                            </div>
-                          </div>
-                          <input type="password" id="re_pass" name="re_pass" class="form-control" placeholder="Repite la contraseña..." required>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
@@ -280,7 +260,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
           <div class="col-md-12">
             <div class="card card-warning">
               <div class="card-header ">
-                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de apiarios</h4>
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de personas</h4>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -296,41 +276,36 @@ include '../../seguridad/verificar_sesion_inicio.php';
                           </div>
                         </div>
                       </div>
-
-                      <!-- <div class="form-group">
-                    <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
-                  </div>    -->
-                      <table id="tabla_usuarios" class="table table-bordered table-striped">
+                      <table id="tabla_personas" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellido paterno</th>
-                            <th>Apellido materno</th>
-                            <th>Fecha nacimiento</th>
-                            <th>Correo</th>
-                            <th>Dirección</th>
-                            <th>Telefono</th>
-                            <th>Usuario</th>
-                            <th>Estado</th>
-                            <th>Editar</th>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Nombre</th>
+                            <th class="bg-gradient-warning">Apellido paterno</th>
+                            <th class="bg-gradient-warning">Apellido materno</th>
+                            <th class="bg-gradient-warning">Fecha nacimiento</th>
+                            <th class="bg-gradient-warning">Correo</th>
+                            <th class="bg-gradient-warning">Dirección</th>
+                            <th class="bg-gradient-warning">Telefono</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
                           </tr>
                         </thead>
                         <tbody class="" id="cuerpo_tabla">
+
                         </tbody>
                         <tfoot class="text-center">
                           <tr>
-                            <th>#</th>
-                            <th>Nombre</th>
-                            <th>Apellido paterno</th>
-                            <th>Apellido materno</th>
-                            <th>Fecha nacimiento</th>
-                            <th>Correo</th>
-                            <th>Dirección</th>
-                            <th>Telefono</th>
-                            <th>Usuario</th>
-                            <th>Estado</th>
-                            <th>Editar</th>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Nombre</th>
+                            <th class="bg-gradient-warning">Apellido paterno</th>
+                            <th class="bg-gradient-warning">Apellido materno</th>
+                            <th class="bg-gradient-warning">Fecha nacimiento</th>
+                            <th class="bg-gradient-warning">Correo</th>
+                            <th class="bg-gradient-warning">Dirección</th>
+                            <th class="bg-gradient-warning">Telefono</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
                           </tr>
                         </tfoot>
                       </table>
@@ -358,23 +333,25 @@ include '../../seguridad/verificar_sesion_inicio.php';
   <script type="text/javascript" src="funciones.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {
+
       llenar_tabla();
+
       var tipo_user = $("#tipo_user").text();
 
-      // alert(tipo_user);
       if (tipo_user == 'Administrador') {
+        $("#modulo_modulos").removeAttr("hidden");
         $("#modulo_usuarios").removeAttr("hidden");
       } else {
+        $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
       }
     });
   </script>
-
   <script>
     $(document).ready(function() {
       $("#search").keyup(function() {
         _this = this;
-        $.each($("#tabla_usuarios tbody tr"), function() {
+        $.each($("#tabla_personas tbody tr"), function() {
           if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
             $(this).hide();
           else

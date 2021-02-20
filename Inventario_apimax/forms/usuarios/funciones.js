@@ -34,14 +34,8 @@ $("#frmUsuarios").submit(function(e){
                 accion = $(this).attr("data-action");
                 $("#titulo_formulario").text(" Nuevo usuario");
 
-                $("#nombre").val("");
-                $("#ap_paterno").val("");
-                $("#ap_materno").val("");
-                $("#fecha_nac").val("");
-                $("#direccion").val("");
-                $("#correo").val("");
-                $("#telefono").val("");
-                $("#tipo_user").val("");
+                $("#tipo_user").val();
+                $("#id_persona").val();
                 $("#usuario").val("");
                 $("#pass").val("");
                 $("#re_pass").val("");
@@ -88,31 +82,24 @@ function editar(id_usuario)
     $("#titulo_formulario").text(" Editar usuario");
 
     var fila = $("#usuario_" + id_usuario);
-    var nombre = $(fila).find(".nombre").html();
-    var ap_paterno = $(fila).find(".ap_paterno").html();
-    var ap_materno = $(fila).find(".ap_materno").html();
-    var fecha_nac = $(fila).find(".fecha_nac").html();
-    var direccion = $(fila).find(".direccion").html();
-    var correo = $(fila).find(".correo").html();
-    var telefono = $(fila).find(".telefono").html();
-    var usuario = $(fila).find(".usuario").html();
+    var id_persona = $("#id_persona_" + id_usuario).val();
     var tipo_user = $(fila).find(".tipo_user").html();
+    var usuario = $(fila).find(".usuario").html();
     var pass = $(fila).find(".pass").html();
     var re_pass = $(fila).find(".re_pass").html();
 
+    var num_personas = document.getElementById("id_persona").length;
+    for (let i = 1; i <= num_personas; i++) {
+        $("#id_persona option[value="+i+"]").removeAttr("selected");
+    }
+    $("#id_persona option[value="+id_persona+"]").attr("selected",true);
+    $("#tipo_user option[value="+tipo_user+"]").attr("selected",true);
 
-    $("#nombre").val(nombre);
-    $("#ap_paterno").val(ap_paterno);
-    $("#ap_materno").val(ap_materno);
-    $("#fecha_nac").val(fecha_nac);
-    $("#direccion").val(direccion);
-    $("#correo").val(correo);
-    $("#telefono").val(telefono);
+
     $("#usuario").val(usuario);
-    $("#tipo_user").val(tipo_user);
     $("#pass").val(pass);
     $("#re_pass").val(re_pass);
-    $("#nombre").focus();
+    $("#usuario").focus();
 
     $("#id_usuario").val(id_usuario);
     $("#frmUsuarios").attr("data-action","editar");

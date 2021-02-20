@@ -2,6 +2,11 @@
 include '../../conexion/conexion.php';
 include '../../seguridad/verificar_sesion_inicio.php';
 
+$personas = $conexion->prepare("SELECT id_persona, CONCAT(nombre,' ', ap_paterno,' ',ap_materno) AS Nombre_full
+FROM personas
+WHERE activo = 1");
+$personas->execute();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,12 +69,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="../principal/index.php" class="nav-link">
+              <a href="index.php" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
             </li>
-            <li id="modulo_modulos" class="nav-item has-treeview" hidden>
+            <li id="modulo_modulos" class="nav-item has-treeview menu-close" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -129,15 +134,27 @@ include '../../seguridad/verificar_sesion_inicio.php';
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Usuarios
+                  Personas
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="index.php" class="nav-link active">
+                  <a href="../personas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Administrar Usuarios</p>
+                    <p>Personas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../usuarios/index.php" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Usuarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../clientes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Clientes</p>
                   </a>
                 </li>
               </ul>
@@ -159,8 +176,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Usuarios</a></li>
-                <li class="breadcrumb-item active">Administrar Usuarios</li>
+                <li class="breadcrumb-item"><a href="#">Personas</a></li>
+                <li class="breadcrumb-item active">Usuarios</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -190,55 +207,22 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-4">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa el nombre..." required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="ap_paterno">Apellido paterno:</label>
-                        <input type="text" class="form-control" id="ap_paterno" name="ap_paterno" placeholder="Ingresa el apellido paterno..." required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="ap_materno">Apellido materno:</label>
-                        <input type="text" class="form-control" id="ap_materno" name="ap_materno" placeholder="Ingresa el apellido materno..." required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-5">
-                        <label for="fecha_nac">Fecha de nacimiento:</label>
-                        <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" title="Ingresa la fecha de nacimiento" required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-7">
-                        <label for="direccion">Dirección:</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingresa la dirección..." required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="correo">Correo:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                          </div>
-                          <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa el correo electronico..." required>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="telefono">Telefono:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                          </div>
-                          <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingresa el numero de telefono..." required>
-                        </div>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="tipo_user">Tipo de usuario</label>
+                        <label for="tipo_user">Tipo de usuario:</label>
                         <select id="tipo_user" name="tipo_user" class="form-control" required title="Solo el tipo de usuario de Administrador puede accesar al modulo de Usuarios">
                           <option value="Administrador">Administrador</option>
                           <option value="Basico">Basico</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-sm-12 col-md-8">
+                        <label for="id_persona">Nombre de persona:</label>
+                        <select name="id_persona" id="id_persona" class="form-control" required>
+                          <?php
+                          while ($row = $personas->fetch(PDO::FETCH_NUM)) {
+                          ?>
+                            <option value="<?php echo $row[0]; ?>"> <?php echo $row[1]; ?> </option>
+                          <?php
+                          }
+                          ?>
                         </select>
                       </div>
                     </div>
@@ -275,102 +259,85 @@ include '../../seguridad/verificar_sesion_inicio.php';
                         </div>
                       </div>
                     </div>
-
                   </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer">
+                    <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                    <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
+                  </div>
+                </form>
               </div>
-              <!-- /.card-body -->
-              <div class="card-footer">
-                <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
-                <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
-              </div>
-              </form>
             </div>
-
           </div>
-        </div>
 
-        <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
-        <div class="col-md-12">
-          <div class="card card-warning">
-            <div class="card-header ">
-              <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de usuarios</h4>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="table-responsive">
-                    <div class="col-md-7">
-
-                    </div>
-                    <div class="input-group mb-3 col-md-5 float-right">
-                      <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
-                      <div class="input-group-append">
-                        <div class="input-group-text">
-                          <span class="fas fa-search"></span>
+          <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header ">
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de usuarios</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <div class="col-md-7">
+                      </div>
+                      <div class="input-group mb-3 col-md-5 float-right">
+                        <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
+                        <div class="input-group-append">
+                          <div class="input-group-text">
+                            <span class="fas fa-search"></span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-
-                    <!-- <div class="form-group">
+                      <!-- <div class="form-group">
                     <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
                   </div>    -->
-                    <table id="tabla_usuarios" class="table table-bordered table-striped">
-                      <thead class="text-center">
-                        <tr>
-                          <th class="bg-gradient-warning">#</th>
-                          <th class="bg-gradient-warning">Nombre</th>
-                          <th class="bg-gradient-warning">Apellido paterno</th>
-                          <th class="bg-gradient-warning">Apellido materno</th>
-                          <th class="bg-gradient-warning">Fecha nacimiento</th>
-                          <th class="bg-gradient-warning">Correo</th>
-                          <th class="bg-gradient-warning">Dirección</th>
-                          <th class="bg-gradient-warning">Telefono</th>
-                          <th class="bg-gradient-warning">Tipo usuario</th>
-                          <th class="bg-gradient-warning">Usuario</th>
-                          <th class="bg-gradient-warning">Contraseña</th>
-                          <th class="bg-gradient-warning" hidden>Rep contraseña</th>
-                          <th class="bg-gradient-warning">Estado</th>
-                          <th class="bg-gradient-warning">Editar</th>
-                        </tr>
-                      </thead>
-                      <tbody class="" id="cuerpo_tabla">
+                      <table id="tabla_usuarios" class="table table-bordered table-striped">
+                        <thead class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Nombre del usuario</th>
+                            <th class="bg-gradient-warning">Tipo usuario</th>
+                            <th class="bg-gradient-warning">Usuario</th>
+                            <th class="bg-gradient-warning">Contraseña</th>
+                            <th class="bg-gradient-warning" hidden>Rep contraseña</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </thead>
+                        <tbody class="" id="cuerpo_tabla">
 
-                      </tbody>
-                      <tfoot class="text-center">
-                        <tr>
-                          <th class="bg-gradient-warning">#</th>
-                          <th class="bg-gradient-warning">Nombre</th>
-                          <th class="bg-gradient-warning">Apellido paterno</th>
-                          <th class="bg-gradient-warning">Apellido materno</th>
-                          <th class="bg-gradient-warning">Fecha nacimiento</th>
-                          <th class="bg-gradient-warning">Correo</th>
-                          <th class="bg-gradient-warning">Dirección</th>
-                          <th class="bg-gradient-warning">Telefono</th>
-                          <th class="bg-gradient-warning">Tipo usuario</th>
-                          <th class="bg-gradient-warning">Usuario</th>
-                          <th class="bg-gradient-warning">Contraseña</th>
-                          <th class="bg-gradient-warning" hidden>Rep contraseña</th>
-                          <th class="bg-gradient-warning">Estado</th>
-                          <th class="bg-gradient-warning">Editar</th>
-                        </tr>
-                      </tfoot>
-                    </table>
+                        </tbody>
+                        <tfoot class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Nombre del usuario</th>
+                            <th class="bg-gradient-warning">Tipo usuario</th>
+                            <th class="bg-gradient-warning">Usuario</th>
+                            <th class="bg-gradient-warning">Contraseña</th>
+                            <th class="bg-gradient-warning" hidden>Rep contraseña</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Editar</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-    </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 1.0.0
+        </div><!-- /.container-fluid -->
+      </section>
+      <!-- /.content -->
     </div>
-  </footer>
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="float-right d-none d-sm-inline-block">
+        <b>Version</b> 1.0.0
+      </div>
+    </footer>
 
   </div>
   <!-- ./wrapper -->

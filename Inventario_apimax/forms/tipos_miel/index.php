@@ -51,12 +51,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
           </div>
         </div>
         <!-- Sidebar Menu -->
+        <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="../principal/index.php" class="nav-link">
+              <a href="../principal/index.php" class="nav-link ">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
@@ -77,13 +78,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index.php" class="nav-link active">
+                  <a href="../tipos_miel/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de Miel</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../productos/index.php" class="nav-link">
+                  <a href="../productos/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
                   </a>
@@ -121,15 +122,27 @@ include '../../seguridad/verificar_sesion_inicio.php';
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Usuarios
+                  Personas
                   <i class="right fas fa-angle-left"></i>
                 </p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
+                  <a href="../personas/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Personas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="../usuarios/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Administrar Usuarios</p>
+                    <p>Usuarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../clientes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Clientes</p>
                   </a>
                 </li>
               </ul>
