@@ -1,4 +1,4 @@
-$("#frmTamanoFrasco").submit(function (e) {
+$("#frmApiario").submit(function (e) {
   var accion = $(this).attr("data-action");
   var url = "";
 
@@ -19,12 +19,11 @@ $("#frmTamanoFrasco").submit(function (e) {
         swal.fire("Éxito", "Registro editado correctamente :)", "success");
       }
       accion = $(this).attr("data-action");
-      $("#titulo_formulario").text(" Nuevo tamaño de frasco");
 
-      $("#tamano_frasco").val("");
-
-      $("#id_tamano_frasco").val("");
-      $("#frmTamanoFrasco").attr("data-action", "agregar");
+      $("#titulo_formulario").text(" Nuevo apiario");
+      $("#nombre").val("");
+      $("#id_apiario").val("");
+      $("#frmApiario").attr("data-action", "agregar");
 
       llenar_tabla();
     },
@@ -50,20 +49,21 @@ function llenar_tabla() {
   });
 }
 
-function editar(id_tamano_frasco) {
-  $("#titulo_formulario").text(" Editar tamaño de frasco");
+function editar(id_apiario) {
+  $("#titulo_formulario").text(" Editar apiario");
 
-  var fila = $("#tamano_frasco_" + id_tamano_frasco);
-  var tamano_frasco = $(fila).find(".tamano_frasco").html();
+  var fila = $("#nombre_" + id_apiario);
+  var nombre = $(fila).find(".nombre").html();
 
-  $("#tamano_frasco").val(tamano_frasco);
-  $("#id_tamano_frasco").val(id_tamano_frasco);
-  $("#frmTamanoFrasco").attr("data-action", "editar");
-  $("#tamano_frasco").focus();
+  $("#nombre").val(nombre);
+  $("#id_apiario").val(id_apiario);
+  $("#frmApiario").attr("data-action", "editar");
+  $("#nombre").focus();
 }
+
 function cancelar() {
-  $("#titulo_formulario").text(" Nuevo tamaño de frasco");
-  $("#id_tamano_frasco").val("");
-  $("#frmTamanoFrasco").attr("data-action", "agregar");
+  $("#titulo_formulario").text(" Nuevo apiario");
+  $("#id_apiario").val("");
+  $("#frmApiario").attr("data-action", "agregar");
   $().val("");
 }

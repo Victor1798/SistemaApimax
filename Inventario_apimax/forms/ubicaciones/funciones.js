@@ -1,4 +1,4 @@
-$("#frmTamanoFrasco").submit(function (e) {
+$("#frmUbicacion").submit(function (e) {
   var accion = $(this).attr("data-action");
   var url = "";
 
@@ -19,12 +19,11 @@ $("#frmTamanoFrasco").submit(function (e) {
         swal.fire("Éxito", "Registro editado correctamente :)", "success");
       }
       accion = $(this).attr("data-action");
-      $("#titulo_formulario").text(" Nuevo tamaño de frasco");
 
-      $("#tamano_frasco").val("");
-
-      $("#id_tamano_frasco").val("");
-      $("#frmTamanoFrasco").attr("data-action", "agregar");
+      $("#titulo_formulario").text(" Nueva ubicación");
+      $("#ubicacion").val("");
+      $("#id_ubicacion").val("");
+      $("#frmUbicacion").attr("data-action", "agregar");
 
       llenar_tabla();
     },
@@ -50,20 +49,20 @@ function llenar_tabla() {
   });
 }
 
-function editar(id_tamano_frasco) {
-  $("#titulo_formulario").text(" Editar tamaño de frasco");
+function editar(id_ubicacion) {
+  $("#titulo_formulario").text(" Editar ubicación");
 
-  var fila = $("#tamano_frasco_" + id_tamano_frasco);
-  var tamano_frasco = $(fila).find(".tamano_frasco").html();
+  var fila = $("#ubicacion_" + id_ubicacion);
+  var ubicacion = $(fila).find(".ubicacion").html();
 
-  $("#tamano_frasco").val(tamano_frasco);
-  $("#id_tamano_frasco").val(id_tamano_frasco);
-  $("#frmTamanoFrasco").attr("data-action", "editar");
-  $("#tamano_frasco").focus();
+  $("#ubicacion").val(ubicacion);
+  $("#id_ubicacion").val(id_ubicacion);
+  $("#frmUbicacion").attr("data-action", "editar");
+  $("#ubicacion").focus();
 }
 function cancelar() {
-  $("#titulo_formulario").text(" Nuevo tamaño de frasco");
-  $("#id_tamano_frasco").val("");
-  $("#frmTamanoFrasco").attr("data-action", "agregar");
+  $("#titulo_formulario").text(" Nueva ubicación");
+  $("#id_ubicacion").val("");
+  $("#frmUbicacion").attr("data-action", "agregar");
   $().val("");
 }

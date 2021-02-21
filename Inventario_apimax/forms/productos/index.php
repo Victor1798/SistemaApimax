@@ -70,7 +70,7 @@ $tamanos_frascos->execute();
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="../principal/index.php" class="nav-link ">
+              <a href="../principal/index.php" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
@@ -85,13 +85,7 @@ $tamanos_frascos->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../ubicaciones/index.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Apiarios</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="../tipos_miel/index.php" class="nav-link">
+                  <a href="../tipos_miel/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de miel</p>
                   </a>
@@ -106,6 +100,18 @@ $tamanos_frascos->execute();
                   <a href="../productos/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../apiarios/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Apiarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../ubicaciones/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ubicaciones</p>
                   </a>
                 </li>
               </ul>
@@ -133,7 +139,7 @@ $tamanos_frascos->execute();
                 <li class="nav-item">
                   <a href="../salidas_forzosas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Salidas Forzosas</p>
+                    <p>Salidas forzosas</p>
                   </a>
                 </li>
               </ul>
@@ -147,7 +153,7 @@ $tamanos_frascos->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../personas/index.php" class="nav-link">
+                  <a href="../personas/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Personas</p>
                   </a>
@@ -218,7 +224,7 @@ $tamanos_frascos->execute();
                         <input type="text" class="form-control" id="producto" name="producto" placeholder="Ingresa el nombre del producto..." required>
                       </div>
                       <div class="form-group col-sm-12 col-md-6">
-                        <label for="id_tipo_miel">Tipo de miel</label>
+                        <label for="id_tipo_miel">Tipo de miel:</label>
                         <select name="id_tipo_miel" id="id_tipo_miel" class="form-control" required>
                           <?php
                           while ($row = $tipos_miel->fetch(PDO::FETCH_NUM)) {
@@ -231,8 +237,8 @@ $tamanos_frascos->execute();
                       </div>
                     </div>
                     <div class="row">
-                    <div class="form-group col-sm-12 col-md-6">
-                        <label for="id_tamano_frasco">Tipo de miel</label>
+                      <div class="form-group col-sm-12 col-md-6">
+                        <label for="id_tamano_frasco">Tamaño del frasco:</label>
                         <select name="id_tamano_frasco" id="id_tamano_frasco" class="form-control" required>
                           <?php
                           while ($row = $tamanos_frascos->fetch(PDO::FETCH_NUM)) {

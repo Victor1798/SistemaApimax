@@ -1,18 +1,14 @@
 <?php
 include '../../conexion/conexion.php';
 include '../../seguridad/verificar_sesion_inicio.php';
-
 ?>
 <!DOCTYPE html>
 <html>
-
 <!-- Head -->
 <?php include '../../head.php'; ?>
 
-
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
-
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-yellow navbar-light ">
       <!-- Left navbar links -->
@@ -34,7 +30,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
       </ul>
     </nav>
     <!-- /.navbar -->
-
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-warning elevation-4">
       <!-- Brand Logo -->
@@ -42,7 +37,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <img src="../../dist/img/logo_apimax.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light"><b> APIMAX</b></span>
       </a>
-
       <!-- Sidebar -->
       <div class="sidebar ">
         <!-- Sidebar user panel (optional) -->
@@ -54,10 +48,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <!-- <a href="#" class="d-block">Nombre usuario</a> -->
             <a href="#" class="d-block"><?php echo $_SESSION["apimax_nombre_persona"]; ?></a>
             <span id="tipo_user" class="d-block text-warning"><?php echo $_SESSION["apimax_tipo_usuario"]; ?></span>
-
           </div>
         </div>
-
         <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -69,7 +61,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 <p>Menu Principal</p>
               </a>
             </li>
-            <li id="modulo_modulos" class="nav-item has-treeview menu-close" hidden>
+            <li id="modulo_modulos" class="nav-item has-treeview menu-open" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -79,13 +71,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../tipos_miel/index.php" class="nav-link">
+                  <a href="../tipos_miel/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de miel</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../tamanos_frascos/index.php" class="nav-link">
+                  <a href="../tamanos_frascos/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tamaños de frascos</p>
                   </a>
@@ -103,7 +95,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../ubicaciones/index.php" class="nav-link">
+                  <a href="../ubicaciones/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Ubicaciones</p>
                   </a>
@@ -137,7 +129,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
               </ul>
-            <li id="modulo_usuarios" class="nav-item has-treeview menu-open" hidden>
+            <li id="modulo_usuarios" class="nav-item has-treeview menu-close" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
@@ -147,7 +139,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../personas/index.php" class="nav-link active">
+                  <a href="../personas/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Personas</p>
                   </a>
@@ -171,7 +163,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
       </div>
       <!-- /.sidebar -->
     </aside>
-
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -179,81 +170,41 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Personas</h1>
+              <h1 class="m-0 text-dark">Ubicaciónes</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Personas</a></li>
-                <li class="breadcrumb-item active">Personas</li>
+                <li class="breadcrumb-item"><a href="#">Modulos</a></li>
+                <li class="breadcrumb-item active">Ubicaciónes</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-
           <!-- div de columnas -->
           <div class="col-sm-12 col-md-12 col-lg-12">
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Nueva persona</h2>
+                <h2 class="card-title" id="titulo_formulario"> Nueva ubicación</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <div id="formPersonas" class="card-body">
-                <form action="#" method="POST" id="frmPersonas" data-action="agregar">
-                  <input type="hidden" name="id_persona" id="id_persona">
+              <div id="formUbicacion" class="card-body">
+                <form action="#" method="POST" id="frmUbicacion" data-action="agregar">
+                  <input type="hidden" name="id_ubicacion" id="id_ubicacion">
                   <div class="card-body">
                     <div class="row">
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingresa el nombre..." required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="ap_paterno">Apellido paterno:</label>
-                        <input type="text" class="form-control" id="ap_paterno" name="ap_paterno" placeholder="Ingresa el apellido paterno..." required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="ap_materno">Apellido materno:</label>
-                        <input type="text" class="form-control" id="ap_materno" name="ap_materno" placeholder="Ingresa el apellido materno..." required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-5">
-                        <label for="fecha_nac">Fecha de nacimiento:</label>
-                        <input type="date" class="form-control" id="fecha_nac" name="fecha_nac" title="Ingresa la fecha de nacimiento" required>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-7">
-                        <label for="direccion">Dirección:</label>
-                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingresa la dirección..." required>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="correo">Correo:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                          </div>
-                          <input type="email" class="form-control" id="correo" name="correo" placeholder="Ingresa el correo electronico..." required>
-                        </div>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="telefono">Telefono:</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                          </div>
-                          <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Ingresa el numero de telefono..." required>
-                        </div>
+                      <div class="form-group col-sm-12 col-md-12">
+                        <label for="ubicacion">Ubicación:</label>
+                        <input type="text" class="form-control" id="ubicacion" name="ubicacion" placeholder="Ingresa la Ubicación..." required>
                       </div>
                     </div>
                   </div>
@@ -264,15 +215,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </div>
                 </form>
               </div>
-
             </div>
           </div>
-
           <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
           <div class="col-md-12">
             <div class="card card-warning">
               <div class="card-header ">
-                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de personas</h4>
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de ubicaciones</h4>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -288,34 +237,21 @@ include '../../seguridad/verificar_sesion_inicio.php';
                           </div>
                         </div>
                       </div>
-                      <table id="tabla_personas" class="table table-bordered table-striped">
+                      <table id="tabla_ubicacion" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Nombre</th>
-                            <th class="bg-gradient-warning">Apellido paterno</th>
-                            <th class="bg-gradient-warning">Apellido materno</th>
-                            <th class="bg-gradient-warning">Fecha nacimiento</th>
-                            <th class="bg-gradient-warning">Correo</th>
-                            <th class="bg-gradient-warning">Dirección</th>
-                            <th class="bg-gradient-warning">Telefono</th>
+                            <th class="bg-gradient-warning">Ubicación</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
                         </thead>
                         <tbody class="" id="cuerpo_tabla">
-
                         </tbody>
                         <tfoot class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Nombre</th>
-                            <th class="bg-gradient-warning">Apellido paterno</th>
-                            <th class="bg-gradient-warning">Apellido materno</th>
-                            <th class="bg-gradient-warning">Fecha nacimiento</th>
-                            <th class="bg-gradient-warning">Correo</th>
-                            <th class="bg-gradient-warning">Dirección</th>
-                            <th class="bg-gradient-warning">Telefono</th>
+                            <th class="bg-gradient-warning">Ubicación</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
@@ -337,7 +273,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <b>Version</b> 1.0.0
       </div>
     </footer>
-
   </div>
   <!-- ./wrapper -->
   <?php include '../../scripts.php'; ?>
@@ -363,7 +298,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
     $(document).ready(function() {
       $("#search").keyup(function() {
         _this = this;
-        $.each($("#tabla_personas tbody tr"), function() {
+        $.each($("#tabla_ubicacion tbody tr"), function() {
           if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
             $(this).hide();
           else

@@ -16,8 +16,6 @@ $("#frmTipoMiel").submit(function (e) {
       dataType: "html",
       data: $(this).serialize(),
       success: function (respuesta) {
-        // alert(respuesta);
-
         if (accion == "agregar") {
           swal.fire("Éxito", "Registro agregado correctamente :)", "success");
         } else if (accion == "editar") {
@@ -36,7 +34,6 @@ $("#frmTipoMiel").submit(function (e) {
         swal.fire("Error", "Ha ocurrido un error :(", "error");
       },
     });
-    //  ---
   }
   e.preventDefault();
   return false;

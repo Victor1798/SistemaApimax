@@ -71,12 +71,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../ubicaciones/index.php" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Apiarios</p>
-                  </a>
-                </li>
-                <li class="nav-item">
                   <a href="../tipos_miel/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de miel</p>
@@ -92,6 +86,18 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   <a href="../productos/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../apiarios/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Apiarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../ubicaciones/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ubicaciones</p>
                   </a>
                 </li>
               </ul>
@@ -228,19 +234,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h4>Apiario</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../ubicaciones/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
                   <h4>Tipo de miel</h4>
                   <p>Modulos</p>
                 </div>
@@ -248,6 +241,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   <i class="ion ion-compose"></i>
                 </div>
                 <a href="../tipos_miel/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h4>Tamaño de frascos</h4>
+                  <p>Modulos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-compose"></i>
+                </div>
+                <a href="../tamanos_frascos/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <div class="col-lg-3 col-6">
@@ -263,6 +269,32 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 <a href="../productos/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h4>Apiarios</h4>
+                  <p>Modulos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-compose"></i>
+                </div>
+                <a href="../apiarios/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h4>Ubicaciones</h4>
+                  <p>Modulos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-compose"></i>
+                </div>
+                <a href="../ubicaciones/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
             <!-- ./col -->
           </div>
           <div id="botones_usuarios" class="row" hidden>
@@ -270,13 +302,39 @@ include '../../seguridad/verificar_sesion_inicio.php';
               <!-- small box -->
               <div class="small-box bg-warning">
                 <div class="inner">
-                  <h4>Administrar usuarios</h4>
-                  <p>Usuarios</p>
+                  <h4>Personas</h4>
+                  <p>Personas</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="../personas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h4>Usuarios</h4>
+                  <p>Personas</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-person-add"></i>
                 </div>
                 <a href="../usuarios/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h4>Clientes</h4>
+                  <p>Personas</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-person-add"></i>
+                </div>
+                <a href="../clientes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

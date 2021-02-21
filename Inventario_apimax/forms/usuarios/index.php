@@ -69,7 +69,7 @@ $personas->execute();
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="index.php" class="nav-link">
+              <a href="../principal/index.php" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
@@ -84,21 +84,33 @@ $personas->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../ubicaciones/index.php" class="nav-link">
+                  <a href="../tipos_miel/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Apiarios</p>
+                    <p>Tipos de miel</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../tipos_miel/index.php" class="nav-link">
+                  <a href="../tamanos_frascos/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Tipos de Miel</p>
+                    <p>Tamaños de frascos</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="../productos/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Productos</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../apiarios/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Apiarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../ubicaciones/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Ubicaciones</p>
                   </a>
                 </li>
               </ul>
@@ -126,7 +138,7 @@ $personas->execute();
                 <li class="nav-item">
                   <a href="../salidas_forzosas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Salidas Forzosas</p>
+                    <p>Salidas forzosas</p>
                   </a>
                 </li>
               </ul>
@@ -140,7 +152,7 @@ $personas->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../personas/index.php" class="nav-link">
+                  <a href="../personas/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Personas</p>
                   </a>
