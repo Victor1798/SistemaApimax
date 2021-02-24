@@ -87,6 +87,28 @@ function editar(id_producto) {
   $("#frmProductos").attr("data-action", "editar");
 
 }
+
+function generar_codigo(id_producto) {
+  $("#bar_code_"+id_producto).JsBarcode(id_producto,{displayValue:true, fontSize:20});
+
+  // $.ajax({
+  //   url: "generar_codigo.php",
+  //   type: "POST",
+  //   dataType: "html",
+  //   data: $(this).serialize(),
+  //   success: function (respuesta) {
+
+  //     swal.fire("Éxito", "Se ha generado el codigo de barras del producto :)", "success");
+
+  //     llenar_tabla();
+  //   },
+  //   error: function (respuesta_error) {
+  //     swal.fire("Error", "Ha ocurrido un error :(", "error");
+  //   },
+  // });
+
+}
+
 function cancelar() {
   $("#titulo_formulario").text(" Nuevo producto");
   $("#id_producto").val("");

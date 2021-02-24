@@ -100,6 +100,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
                     <p>Ubicaciones</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../lotes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lotes</p>
+                  </a>
+                </li>
               </ul>
             <li class="nav-item has-treeview menu-close">
               <a href="#" class="nav-link">

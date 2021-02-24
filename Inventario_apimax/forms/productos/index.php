@@ -114,6 +114,12 @@ $tamanos_frascos->execute();
                     <p>Ubicaciones</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../lotes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lotes</p>
+                  </a>
+                </li>
               </ul>
             <li class="nav-item has-treeview menu-close">
               <a href="#" class="nav-link">
@@ -292,9 +298,6 @@ $tamanos_frascos->execute();
                         </div>
                       </div>
 
-                      <!-- <div class="form-group">
-                    <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
-                  </div>    -->
                       <table id="tabla_productos" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
@@ -303,6 +306,8 @@ $tamanos_frascos->execute();
                             <th class="bg-gradient-warning">Tipo de miel</th>
                             <th class="bg-gradient-warning">Tamaño</th>
                             <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
@@ -317,6 +322,8 @@ $tamanos_frascos->execute();
                             <th class="bg-gradient-warning">Tipo de miel</th>
                             <th class="bg-gradient-warning">Tamaño</th>
                             <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
@@ -342,7 +349,6 @@ $tamanos_frascos->execute();
   </div>
   <!-- ./wrapper -->
   <?php include '../../scripts.php'; ?>
-
   <script type="text/javascript" src="funciones.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {

@@ -100,6 +100,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
                     <p>Ubicaciones</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../lotes/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Lotes</p>
+                  </a>
+                </li>
               </ul>
             <li class="nav-item has-treeview menu-close">
               <a href="#" class="nav-link">
@@ -293,6 +299,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   <i class="ion ion-compose"></i>
                 </div>
                 <a href="../ubicaciones/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h4>Lotes</h4>
+                  <p>Modulos</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-compose"></i>
+                </div>
+                <a href="../lotes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
