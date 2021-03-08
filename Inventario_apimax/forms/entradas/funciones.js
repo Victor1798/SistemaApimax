@@ -174,3 +174,24 @@ function cambiar_estado(id_entrada) {
     },
   });
 }
+
+$("#id_producto").change(function () {
+  var id_producto = this.value;
+
+  var url = "calc_precio.php";
+
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "html",
+    data: { id_producto: id_producto },
+    success: function (response) {
+      var array = eval(response);
+      $("#precio").val(array[2]);
+    },
+    error: function (error) {
+      Swal.fire("Error", error, "error");
+    },
+  });
+
+});
