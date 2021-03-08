@@ -13,8 +13,8 @@
 <!-- Sparkline -->
 <script src="../../plugins/sparklines/sparkline.js"></script>
 <!-- JQVMap -->
-<!-- <script src="../../plugins/jqvmap/jquery.vmap.min.js"></script> -->
-<!-- <script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
+<!-- <script src="../../plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="../../plugins/jqvmap/maps/jquery.vmap.usa.js"></script> -->
 <!-- jQuery Knob Chart -->
 <script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -32,12 +32,15 @@
 <script src="../../dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
-
+<!-- alertas -->
 <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
-
+<!-- Para generar codigo de barras -->
 <script src="../../plugins/JsBarcode-master/JsBarcode.all.js"></script>
-
-<script type="text/javascript" src="../../plugins/datatables/datatables.min.js"></script>
+<!-- datatables -->
+<script type="text/javascript" src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../../plugins/datatables/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/jszip.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/pdfmake.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/vfs_fonts.js"></script>
 <script type="text/javascript" src="../../plugins/datatables/buttons.html5.min.js"></script>
-<script type="text/javascript" src="../../plugins/datatables/buttons.flash.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/buttons.print.min.js"></script>

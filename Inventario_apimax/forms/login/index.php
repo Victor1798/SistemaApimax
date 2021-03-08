@@ -77,12 +77,13 @@ include "../../conexion/conexion.php";
               </div>
             </div>
           </div>
+          <br>
           <div class="row">
-            <div class="col-8">
-              <div class="icheck-primary">
+            <div class="col-4">
+              <!-- <div class="icheck-primary">
                 <input type="checkbox" id="remember">
                 <label for="remember">Recordar contraseña</label>
-              </div>
+              </div> -->
             </div>
             <!-- /.col -->
             <div class="col-4">
@@ -93,7 +94,7 @@ include "../../conexion/conexion.php";
         </form>
         <br>
         <p class="mb-1 ">
-          <a href="#">¿Has olvidado tu contraseña?</a>
+          <!-- <a href="#">¿Has olvidado tu contraseña?</a> -->
         </p>
         <!-- FIN CARD BODY -->
       </div>

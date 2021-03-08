@@ -14,13 +14,20 @@ $("#btnEnviar").click(function () {
   ) {
     var url = "guardar.php";
 
+    var titulo = $("#titulo_formulario").text();
+
     $.ajax({
       url: url,
       type: "POST",
       dataType: "html",
       data: $("#frmEntradas").serialize(),
       success: function (response) {
-        swal.fire("Éxito", "Registro agregado correctamente :)", "success");
+        if (titulo == " Nueva entrada") {
+          swal.fire("Éxito", "Registro agregado correctamente :)", "success");
+        }
+        else{
+          swal.fire("Éxito", "Registro actualizado correctamente :)", "success");
+        }
         cargar_tabla();
         $("#frmEntradas")[0].reset();
         $("#id_entrada").val("");
@@ -47,47 +54,47 @@ $("#btnCancelar").click(function () {
 });
 
 function cargar_tabla() {
+
+  // fecha
+	var fecha_actual = new Date();
+	var yyyy = fecha_actual.getFullYear();
+	var mm = fecha_actual.getMonth()+1;
+	var dd = fecha_actual.getDate();
+	var fecha = dd+"-"+mm+"-"+yyyy;
+
   $("#tabla_entradas").dataTable().fnDestroy();
   $("#tabla_entradas").DataTable({
     language: {
-      url: "Spanish.json",
+      url: "../../plugins/datatables/Spanish.json",
       searchPlaceholder: "Buscar...",
     },
-    paging: false,
+    paging: true,
     dom: "Bfrtip",
-    buttons: [
-      {
-        extend: "pageLength",
-        text: "Registros",
-        className: "btn btn-default",
-      },
-      {
-        extend: "excel",
-        text: "Exportar a EXCEL",
-        className: "btn btn-default",
-        title: "PlantasEXCEL",
-        exportOptions: {
-          columns: ":visible",
-        },
-      },
-      {
-        extend: "pdf",
-        text: "Exportar a PDF",
-        className: "btn btn-default",
-        title: "PlantasPDF",
-        exportOptions: {
-          columns: ":visible",
-        },
-      },
-      {
-        extend: "copy",
-        text: "Copiar",
-        className: "btn btn-default",
-        copySuccess: {
-          _: "%d lignes copiées",
-          1: "1 ligne copiée",
-        },
-      },
+    buttons: ["pageLength",
+    {
+      extend: 'excel',
+      text: 'Excel',
+      title: 'APIMAX - Entradas'+' '+fecha,
+      exportOptions: {
+      columns: ':visible'
+      }
+    },
+     {
+      extend: 'pdf',
+      text: 'PDF',
+      title: 'APIMAX - Entradas'+' '+fecha,
+      exportOptions: {
+      columns: ':visible'
+      }
+    },
+    {
+      extend: 'print',
+      text: 'Imprimir',
+      title: 'APIMAX - Entradas'+' '+fecha,
+      exportOptions: {
+      columns: ':visible'
+      }
+    },
     ],
     ajax: {
       type: "POST",
@@ -193,5 +200,4 @@ $("#id_producto").change(function () {
       Swal.fire("Error", error, "error");
     },
   });
-
 });
