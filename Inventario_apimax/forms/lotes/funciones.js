@@ -79,6 +79,28 @@ function editar(id_lote) {
   $("#id_lote").val(id_lote);
   $("#frmLotes").attr("data-action", "editar");
 }
+
+function generar_codigo(id_lote) {
+  $("#bar_code_"+id_lote).JsBarcode(id_lote,{displayValue:true, fontSize:20});
+
+  // $.ajax({
+  //   url: "generar_codigo.php",
+  //   type: "POST",
+  //   dataType: "html",
+  //   data: $(this).serialize(),
+  //   success: function (respuesta) {
+
+  //     swal.fire("Éxito", "Se ha generado el codigo de barras del producto :)", "success");
+
+  //     llenar_tabla();
+  //   },
+  //   error: function (respuesta_error) {
+  //     swal.fire("Error", "Ha ocurrido un error :(", "error");
+  //   },
+  // });
+
+}
+
 function cancelar() {
   $("#titulo_formulario").text(" Nuevo lote");
   $("#id_lote").val("");

@@ -2,11 +2,11 @@
 include '../../conexion/conexion.php';
 include '../../seguridad/verificar_sesion_inicio.php';
 
-$ubicaciones = $conexion->prepare("SELECT id_ubicacion, ubicacion FROM ubicaciones WHERE activo = 1");
-$ubicaciones->execute();
+$productos = $conexion->prepare("SELECT id_producto, producto, precio FROM productos WHERE activo = 1");
+$productos->execute();
 
-$apiarios = $conexion->prepare("SELECT id_apiario, nombre FROM apiarios WHERE activo = 1");
-$apiarios->execute();
+$lotes = $conexion->prepare("SELECT id_lote FROM lotes WHERE activo = 1");
+$lotes->execute();
 
 ?>
 <!DOCTYPE html>
@@ -15,7 +15,8 @@ $apiarios->execute();
 <!-- Head -->
 <?php include '../../head.php'; ?>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
   <div class="wrapper">
 
     <!-- Navbar -->
@@ -59,8 +60,10 @@ $apiarios->execute();
             <!-- <a href="#" class="d-block">Nombre usuario</a> -->
             <a href="#" class="d-block"><?php echo $_SESSION["apimax_nombre_persona"]; ?></a>
             <span id="tipo_user" class="d-block text-warning"><?php echo $_SESSION["apimax_tipo_usuario"]; ?></span>
+
           </div>
         </div>
+
         <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -72,7 +75,7 @@ $apiarios->execute();
                 <p>Menu Principal</p>
               </a>
             </li>
-            <li id="modulo_modulos" class="nav-item has-treeview menu-open" hidden>
+            <li id="modulo_modulos" class="nav-item has-treeview menu-close" hidden>
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -112,13 +115,13 @@ $apiarios->execute();
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../lotes/index.php" class="nav-link active">
+                  <a href="../lotes/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Lotes</p>
                   </a>
                 </li>
               </ul>
-            <li class="nav-item has-treeview menu-close">
+            <li class="nav-item has-treeview menu-close menu-open">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cash-register"></i>
                 <p>
@@ -128,7 +131,7 @@ $apiarios->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../entradas/index.php" class="nav-link">
+                  <a href="../entradas/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Entradas</p>
                   </a>
@@ -188,12 +191,12 @@ $apiarios->execute();
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Lotes</h1>
+              <h1 class="m-0 text-dark">Entradas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Modulos</a></li>
-                <li class="breadcrumb-item active">Lotes</li>
+                <li class="breadcrumb-item"><a href="#">Ventas</a></li>
+                <li class="breadcrumb-item active">Entradas</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -210,103 +213,116 @@ $apiarios->execute();
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Nuevo lote</h2>
+                <h2 class="card-title" id="titulo_formulario"> Nueva entrada</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <div id="formLotes" class="card-body">
-                <form action="#" method="POST" id="frmLotes" data-action="agregar">
-                  <input type="hidden" name="id_lote" id="id_lote">
+              <div id="formEntradas" class="card-body">
+                <form action="#" method="POST" id="frmEntradas" data-action="agregar">
+                  <input type="hidden" name="id_entrada" id="id_entrada">
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-6">
-                        <label for="id_ubicacion">Ubicación:</label>
-                        <select name="id_ubicacion" id="id_ubicacion" class="form-control" required>
+                        <label for="id_producto">Producto:</label>
+                        <select name="id_producto" id="id_producto" class="form-control" required>
                           <?php
-                          while ($row = $ubicaciones->fetch(PDO::FETCH_NUM)) {
+                          while ($row_p = $productos->fetch(PDO::FETCH_NUM)) {
                           ?>
-                            <option value="<?php echo $row[0]; ?>"> <?php echo $row[1]; ?> </option>
-                          <?php
-                          }
-                          ?>
-                        </select>
-                      </div>
-                      <div class="form-group col-sm-12 col-md-6">
-                        <label for="id_apiario">Apiario:</label>
-                        <select name="id_apiario" id="id_apiario" class="form-control" required>
-                          <?php
-                          while ($row = $apiarios->fetch(PDO::FETCH_NUM)) {
-                          ?>
-                            <option value="<?php echo $row[0]; ?>"> <?php echo $row[1]; ?> </option>
+                            <option value="<?php echo $row_p[0]; ?>"><?php echo $row_p[1]; ?> </option>
                           <?php
                           }
                           ?>
                         </select>
                       </div>
                       <div class="form-group col-sm-12 col-md-6">
-                        <label for="fecha_produccion">Fecha de producción:</label>
-                        <input type="date" class="form-control" id="fecha_produccion" name="fecha_produccion" title="Ingresa la fecha de la producción..." required>
+                        <label for="id_lote">Lote:</label>
+                        <select name="id_lote" id="id_lote" class="form-control" required>
+                          <?php
+                          while ($row_l = $lotes->fetch(PDO::FETCH_NUM)) {
+                          ?>
+                            <option value="<?php echo $row_l[0]; ?>"><?php echo $row_l[0]; ?> </option>
+                          <?php
+                          }
+                          ?>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="cantidad">Cantidad:</label>
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required>
+                      </div>
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="precio">Precio:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                          </div>
+                          <input type="number" class="form-control" value="" id="precio" name="precio" placeholder="Ingresa el precio..." step="any" required>
+                        </div>
+                      </div>
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="fecha_entrada">Fecha de entrada:</label>
+                        <input type="date" class="form-control" id="fecha_entrada" name="fecha_entrada" title="Ingresa la fecha de nacimiento" required>
                       </div>
                     </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="reset" id="btnCancelar" class="btn btn-secondary" onclick="cancelar();"><i class="nav-icon fas fa-times"></i> Cancelar</button>
-                    <button type="submit" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
+                    <button type="reset" id="btnCancelar" class="btn btn-secondary"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                    <button type="button" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
                   </div>
                 </form>
               </div>
+
             </div>
           </div>
           <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
           <div class="col-md-12">
             <div class="card card-warning">
               <div class="card-header ">
-                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de lotes</h4>
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de entradas</h4>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="table-responsive">
-                      <div class="col-md-7">
-                      </div>
-                      <div class="input-group mb-3 col-md-5 float-right">
-                        <input type="text" class="form-control pull-right" style="width:25%" id="search" placeholder="Buscar...">
-                        <div class="input-group-append">
-                          <div class="input-group-text">
-                            <span class="fas fa-search"></span>
-                          </div>
-                        </div>
-                      </div>
-                      <table id="tabla_lotes" class="table table-bordered table-striped">
+                      <table id="tabla_entradas" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Ubicacion</th>
-                            <th class="bg-gradient-warning">Apiario</th>
-                            <th class="bg-gradient-warning">Fecha de producción</th>
-                            <th class="bg-gradient-warning">Codigo</th>
-                            <th class="bg-gradient-warning">Generar codigo</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Cantidad disponible</th>
+                            <th class="bg-gradient-warning">Cantidad vendida</th>
+                            <th class="bg-gradient-warning">Cantidad desperdiciada</th>
+                            <th class="bg-gradient-warning">Fecha de entrada</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
                         </thead>
-                        <tbody class="" id="cuerpo_tabla">
+                        <tbody class="text-center" id="cuerpo_tabla">
 
                         </tbody>
                         <tfoot class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Ubicacion</th>
-                            <th class="bg-gradient-warning">Apiario</th>
-                            <th class="bg-gradient-warning">Fecha de producción</th>
-                            <th class="bg-gradient-warning">Codigo</th>
-                            <th class="bg-gradient-warning">Generar codigo</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Cantidad disponible</th>
+                            <th class="bg-gradient-warning">Cantidad vendida</th>
+                            <th class="bg-gradient-warning">Cantidad desperdiciada</th>
+                            <th class="bg-gradient-warning">Fecha de entrada</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
+
                           </tr>
                         </tfoot>
                       </table>
@@ -330,13 +346,9 @@ $apiarios->execute();
   </div>
   <!-- ./wrapper -->
   <?php include '../../scripts.php'; ?>
-
   <script type="text/javascript" src="funciones.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {
-
-      llenar_tabla();
-
       var tipo_user = $("#tipo_user").text();
 
       if (tipo_user == 'Administrador') {
@@ -346,23 +358,10 @@ $apiarios->execute();
         $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
       }
+      $('#tabla_entradas').DataTable();
+      cargar_tabla();
+
     });
   </script>
-
-  <script>
-    $(document).ready(function() {
-      $("#search").keyup(function() {
-        _this = this;
-        $.each($("#tabla_lotes tbody tr"), function() {
-          if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-            $(this).hide();
-          else
-            $(this).show();
-        });
-      });
-    });
-  </script>
-
-</body>
 
 </html>

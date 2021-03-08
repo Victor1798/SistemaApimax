@@ -37,3 +37,7 @@
 
 <script src="../../plugins/JsBarcode-master/JsBarcode.all.js"></script>
 
+<script type="text/javascript" src="../../plugins/datatables/datatables.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/buttons.html5.min.js"></script>
+<script type="text/javascript" src="../../plugins/datatables/buttons.flash.min.js"></script>
