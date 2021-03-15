@@ -44,3 +44,8 @@
 <script type="text/javascript" src="../../plugins/datatables/vfs_fonts.js"></script>
 <script type="text/javascript" src="../../plugins/datatables/buttons.html5.min.js"></script>
 <script type="text/javascript" src="../../plugins/datatables/buttons.print.min.js"></script>
+
+<!-- Texto a imagen -->
+<script type="text/javascript" src="../../plugins/html2canvas/html2canvas.min.js"></script>
+
+

@@ -288,7 +288,8 @@ $apiarios->execute();
                             <th class="bg-gradient-warning">Ubicacion</th>
                             <th class="bg-gradient-warning">Apiario</th>
                             <th class="bg-gradient-warning">Fecha de producción</th>
-                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el texto y seleccionar Guardar imagen">Información<a href="#tabla_lotes">(?)</a></th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el codigo y seleccionar Guardar imagen">Codigo<a href="#tabla_lotes">(?)</a></th>
                             <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
@@ -303,7 +304,8 @@ $apiarios->execute();
                             <th class="bg-gradient-warning">Ubicacion</th>
                             <th class="bg-gradient-warning">Apiario</th>
                             <th class="bg-gradient-warning">Fecha de producción</th>
-                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el texto y seleccionar Guardar imagen">Información<a href="#tabla_lotes">(?)</a></th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el codigo y seleccionar Guardar imagen">Codigo<a href="#tabla_lotes">(?)</a></th>
                             <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
@@ -336,6 +338,7 @@ $apiarios->execute();
     $(document).ready(function(e) {
 
       llenar_tabla();
+      datos_lote();
 
       var tipo_user = $("#tipo_user").text();
 
@@ -362,6 +365,8 @@ $apiarios->execute();
       });
     });
   </script>
+
+
 
 </body>
 

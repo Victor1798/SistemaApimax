@@ -24,8 +24,9 @@ try {
             <td class="text-center id_ubicacion"><?php echo $id_ubicacion; ?></td>
             <td class="text-center id_apiario"><?php echo $id_apiario; ?></td>
             <td class="text-center fecha_produccion"><?php echo $fecha_produccion; ?></td>
+            <td class="text-center"><div class="text-center" id="info_<?php echo $id_lote; ?>"></div></td>
             <td class="text-center codigo"><img id="bar_code_<?php echo $id_lote; ?>"></td>
-            <td class="text-center"><a href="javascript:generar_codigo(<?php echo $id_lote; ?>)" class="btn btn-info"><i class="fas fa-barcode"></i></a></td>
+            <td class="text-center"><a href="javascript:generar_codigo(<?php echo $id_lote; ?>,'<?php echo $id_ubicacion; ?>','<?php echo $id_apiario; ?>','<?php echo $fecha_produccion; ?>')" class="btn btn-info"><i class="fas fa-barcode"></i></a></td>
             <td class="text-center"><a href="estado.php?id_lote=<?php echo $id_lote; ?>&estado=<?php echo $activo; ?>" class="btn btn-secondary"><?php echo $estado; ?></a></td>
             <td class="text-center"><a href="javascript:editar(<?php echo $id_lote; ?>)" class="btn btn-info"><i class="fas fa-pencil-alt"></i></a></td>
         </tr>
@@ -35,3 +36,5 @@ try {
     echo $error->getMessage();
 }
 ?>
+
+

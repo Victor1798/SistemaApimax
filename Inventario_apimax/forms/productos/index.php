@@ -306,7 +306,7 @@ $tamanos_frascos->execute();
                             <th class="bg-gradient-warning">Tipo de miel</th>
                             <th class="bg-gradient-warning">Tamaño</th>
                             <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el codigo y seleccionar Guardar imagen">Codigo<a href="#tabla_productos">(?)</a></th>
                             <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
@@ -322,7 +322,7 @@ $tamanos_frascos->execute();
                             <th class="bg-gradient-warning">Tipo de miel</th>
                             <th class="bg-gradient-warning">Tamaño</th>
                             <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Codigo</th>
+                            <th class="bg-gradient-warning" title="Para guardar dar click derecho en el codigo y seleccionar Guardar imagen">Codigo<a href="#tabla_productos">(?)</a></th>
                             <th class="bg-gradient-warning">Generar codigo</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>

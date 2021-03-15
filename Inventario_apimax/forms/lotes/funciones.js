@@ -71,7 +71,7 @@ function editar(id_lote) {
   for (let i = 1; i <= num_apiarios; i++) {
     $("#id_apiario option[value=" + i + "]").removeAttr("selected");
   }
-  $("#id_apiario option[value=" + id_apiario + "]").attr("selected",true);
+  $("#id_apiario option[value=" + id_apiario + "]").attr("selected", true);
 
   $("#fecha_produccion").val(fecha_produccion);
   $("#id_ubicacion").focus();
@@ -80,25 +80,26 @@ function editar(id_lote) {
   $("#frmLotes").attr("data-action", "editar");
 }
 
-function generar_codigo(id_lote) {
-  $("#bar_code_"+id_lote).JsBarcode(id_lote,{displayValue:true, fontSize:20});
+function generar_codigo(id_lote, ubicacion, apiario, fecha_pro) {
+  $("#bar_code_" + id_lote).JsBarcode(id_lote, {
+    displayValue: true,
+    fontSize: 17,
+  });
 
-  // $.ajax({
-  //   url: "generar_codigo.php",
-  //   type: "POST",
-  //   dataType: "html",
-  //   data: $(this).serialize(),
-  //   success: function (respuesta) {
+  //Generar la imagen del texto de la inforacion del lote
+  var canvas = document.createElement("canvas");
+  var ctx = canvas.getContext("2d");
+  ctx.font = "15px Arial";
+  var ubic = ubicacion;
+  var api = apiario;
+  var fech = fecha_pro;
 
-  //     swal.fire("Éxito", "Se ha generado el codigo de barras del producto :)", "success");
+  var text_full = ubic + " " + api + " " + fech;
 
-  //     llenar_tabla();
-  //   },
-  //   error: function (respuesta_error) {
-  //     swal.fire("Error", "Ha ocurrido un error :(", "error");
-  //   },
-  // });
-
+  ctx.fillText(text_full, 30, 30);
+  var img = document.createElement("img");
+  img.src = canvas.toDataURL();
+  $("#info_" + id_lote).append(img);
 }
 
 function cancelar() {
@@ -107,3 +108,5 @@ function cancelar() {
   $("#frmLotes").attr("data-action", "agregar");
   $().val("");
 }
+
+function datos_lote(id_lote) {}
