@@ -131,7 +131,7 @@ $lotes->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../entradas/index.php" class="nav-link active">
+                  <a href="../entradas/index.php" class="nav-link ">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Entradas</p>
                   </a>
@@ -143,7 +143,7 @@ $lotes->execute();
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../salidas_forzosas/index.php" class="nav-link">
+                  <a href="../salidas_forzosas/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Salidas forzosas</p>
                   </a>
@@ -191,12 +191,12 @@ $lotes->execute();
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Entradas</h1>
+              <h1 class="m-0 text-dark">Salidas forzosas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Ventas</a></li>
-                <li class="breadcrumb-item active">Entradas</li>
+                <li class="breadcrumb-item active">Salidas forzosas</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -213,16 +213,16 @@ $lotes->execute();
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Nueva entrada</h2>
+                <h2 class="card-title" id="titulo_formulario"> Nueva salida forzosa</h2>
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                 </div>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <div id="formEntradas" class="card-body">
-                <form action="#" method="POST" id="frmEntradas" data-action="agregar">
-                  <input type="hidden" name="id_entrada" id="id_entrada">
+              <div id="formSalidas" class="card-body">
+                <form action="#" method="POST" id="frmSalidas" data-action="agregar">
+                  <input type="hidden" name="id_desperdicio" id="id_desperdicio">
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-6">
@@ -252,8 +252,16 @@ $lotes->execute();
                     </div>
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-4">
-                        <label for="cantidad">Cantidad:</label>
-                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required>
+                        <label for="cantidad">Cantidad desperdiciada:</label>
+                        <input type="number" id="cantidad_desperdiciada" name="cantidad_desperdiciada" class="form-control" placeholder="Ingresa la cantidad desperdiciada..." required>
+                      </div>
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" name="descripcion" class="form-control" placeholder="Ingresa la descripción..." required>
+                      </div>
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="fecha">Fecha:</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" title="Ingresa la fecha...." required>
                       </div>
                       <div class="form-group col-sm-12 col-md-4">
                         <label for="precio">Precio:</label>
@@ -261,12 +269,17 @@ $lotes->execute();
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                           </div>
-                          <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingresa el precio..." step="any" required readonly>
+                          <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio del producto..." step="any" required readonly>
                         </div>
                       </div>
                       <div class="form-group col-sm-12 col-md-4">
-                        <label for="fecha_entrada">Fecha de entrada:</label>
-                        <input type="date" class="form-control" id="fecha_entrada" name="fecha_entrada" title="Ingresa la fecha de nacimiento" required>
+                        <label for="total">Total:</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                          </div>
+                          <input type="number" class="form-control" id="total" name="total" placeholder="..." step="any" required readonly>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -284,24 +297,23 @@ $lotes->execute();
           <div class="col-md-12">
             <div class="card card-warning">
               <div class="card-header ">
-                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de entradas</h4>
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de salidas forzosas</h4>
               </div>
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-12">
                     <div class="table-responsive">
-                      <table id="tabla_entradas" class="table table-bordered table-striped">
+                      <table id="tabla_salidas" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
                             <th class="bg-gradient-warning">Producto</th>
                             <th class="bg-gradient-warning">Lote</th>
-                            <th class="bg-gradient-warning">Cantidad</th>
-                            <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Cantidad disponible</th>
-                            <th class="bg-gradient-warning">Cantidad vendida</th>
                             <th class="bg-gradient-warning">Cantidad desperdiciada</th>
-                            <th class="bg-gradient-warning">Fecha de entrada</th>
+                            <th class="bg-gradient-warning">Descripción</th>
+                            <th class="bg-gradient-warning">Fecha</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
                           </tr>
@@ -314,15 +326,13 @@ $lotes->execute();
                             <th class="bg-gradient-warning">#</th>
                             <th class="bg-gradient-warning">Producto</th>
                             <th class="bg-gradient-warning">Lote</th>
-                            <th class="bg-gradient-warning">Cantidad</th>
-                            <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Cantidad disponible</th>
-                            <th class="bg-gradient-warning">Cantidad vendida</th>
                             <th class="bg-gradient-warning">Cantidad desperdiciada</th>
-                            <th class="bg-gradient-warning">Fecha de entrada</th>
+                            <th class="bg-gradient-warning">Descripción</th>
+                            <th class="bg-gradient-warning">Fecha</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
                             <th class="bg-gradient-warning">Estado</th>
                             <th class="bg-gradient-warning">Editar</th>
-
                           </tr>
                         </tfoot>
                       </table>
@@ -359,10 +369,11 @@ $lotes->execute();
         $("#modulo_usuarios").attr("type", "hidden");
       }
 
-      $('#tabla_entradas').DataTable()
+      $('#tabla_salidas').DataTable()
       cargar_tabla();
 
     });
   </script>
+
 
 </html>
