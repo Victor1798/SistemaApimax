@@ -11,7 +11,11 @@ try {
 	$consulta->execute();
 
 	while ($row_entradas = $consulta->fetch(PDO::FETCH_NUM))
+
 	{
+		$res1 = $row_entradas[6]+$row_entradas[7];
+		$resultado = $row_entradas[3] - $res1;
+
 		if ($row_entradas[9] == 1) {
 			$estado = "<a href='estado.php?id_entrada=$row_entradas[0]&estado=$row_entradas[9]' class='btn btn-success' title='Estado'>Activo</a>";
 		}
@@ -27,7 +31,7 @@ try {
 			\"id_lote\":\"$row_entradas[2]\",
 			\"cantidad\":\"$row_entradas[3]\",
 			\"precio\":\"$row_entradas[4]\",
-			\"cantidad_disponible\":\"$row_entradas[5]\",
+			\"cantidad_disponible\":\"$resultado\",
             \"cantidad_vendida\":\"$row_entradas[6]\",
 			\"cantidad_desperdiciada\":\"$row_entradas[7]\",
 			\"fecha_entrada\":\"$row_entradas[8]\",
