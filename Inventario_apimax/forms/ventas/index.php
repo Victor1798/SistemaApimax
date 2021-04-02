@@ -354,7 +354,7 @@ $lotes->execute();
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="reset" id="btnCancelar" class="btn btn-secondary"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                    <button type="button" id="btnCancelar" class="btn btn-secondary"><i class="nav-icon fas fa-times"></i> Cancelar</button>
                     <button type="button" id="btnEnviar" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
                   </div>
                 </form>
@@ -362,7 +362,7 @@ $lotes->execute();
             </div>
           </div>
           <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
-          <div class="col-md-12">
+          <div id="info_table" class="col-md-12" hidden>
             <div class="card card-warning">
               <div class="card-header ">
                 <h4 class="card-title"><i class="fas fa-stream"></i> Tabla de ventas</h4>
@@ -375,16 +375,16 @@ $lotes->execute();
                         <thead class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Cliente</th>
                             <th class="bg-gradient-warning">Producto</th>
                             <th class="bg-gradient-warning">Lote</th>
                             <th class="bg-gradient-warning">Tipo de venta</th>
-                            <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Fecha de pago</th>
                             <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento</th>
                             <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Editar</th>
+                            <th class="bg-gradient-warning">Eliminar</th>
                           </tr>
                         </thead>
                         <tbody class="text-center" id="cuerpo_tabla">
@@ -393,16 +393,16 @@ $lotes->execute();
                         <tfoot class="text-center">
                           <tr>
                             <th class="bg-gradient-warning">#</th>
-                            <th class="bg-gradient-warning">Cliente</th>
                             <th class="bg-gradient-warning">Producto</th>
                             <th class="bg-gradient-warning">Lote</th>
                             <th class="bg-gradient-warning">Tipo de venta</th>
-                            <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Fecha de pago</th>
                             <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento</th>
                             <th class="bg-gradient-warning">Precio</th>
-                            <th class="bg-gradient-warning">Estado</th>
+                            <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Editar</th>
+                            <th class="bg-gradient-warning">Eliminar</th>
                           </tr>
                         </tfoot>
                       </table>
@@ -441,7 +441,7 @@ $lotes->execute();
 
       $('#tabla_detalle_ventas').DataTable()
       llenarVentas();
-      cargar_tabla();
+      // cargar_tabla();
 
     });
   </script>

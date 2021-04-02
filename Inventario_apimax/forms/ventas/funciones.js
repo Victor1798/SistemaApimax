@@ -13,7 +13,7 @@ $("#btnEnviarCliente").click(function () {
         Swal.fire("Hecho", "Cliente seleccionado, genera la venta", "success");
         // $("#id_venta")[0].reset();
         llenarVentas();
-        cargar_tabla();
+        // cargar_tabla(id_cliente);
 
         $("#frmVentas")[0].reset();
         $("#id_venta_cliente").val("");
@@ -32,6 +32,7 @@ $("#btnEnviarCliente").click(function () {
 
 $("#btnCancelarCliente").click(function () {
   $("#titulo_formulario1").text(" Nueva venta");
+  $("#titulo_formulario2").text(" Información de venta");
 
   $("#id_venta_cliente").val("");
   $("#id_detalle_venta").val("");
@@ -39,16 +40,24 @@ $("#btnCancelarCliente").click(function () {
   $("#frmVentas")[0].reset();
   $("#frmDetalleVentas")[0].reset();
 
-
-
   $("#info_venta").attr("hidden", true);
+  $("#info_table").attr("hidden", true);
+
 });
 
 $("#btnCancelar").click(function () {
   $("#titulo_formulario2").text(" Información de venta");
-  $("#id_detalle_venta").val("");
 
-  $("#frmDetalleVentas")[0].reset();
+  $("#id_detalle_venta").val("");
+  $("#id_producto").val(1);
+  $("#id_lote").val(1);
+  $("#tipo_venta").val("Contado");
+  $("#estado_pago").val("Pagado");
+  $("#fecha_pago").val("");
+  $("#cantidad").val("");
+  $("#precio").val("");
+  $("#total").val("");
+
 });
 
 $("#btnEnviar").click(function () {
@@ -69,7 +78,6 @@ $("#btnEnviar").click(function () {
     id_lote != "" &&
     tipo_venta != "" &&
     estado_pago != "" &&
-    fecha != "" &&
     cantidad != "" &&
     precio != ""
   ) {
@@ -84,13 +92,22 @@ $("#btnEnviar").click(function () {
       data: $("#frmDetalleVentas").serialize(),
       success: function (response) {
         if (titulo == " Información de venta") {
-          swal.fire("Éxito", "Nueva venta generada!", "success");
+          swal.fire("Éxito", "Venta agregada", "success");
         } else {
-          swal.fire("Éxito", "La venta ha sido editada", "success");
+          swal.fire("Éxito", "Venta editada", "success");
         }
-        cargar_tabla();
-        $("#frmDetalleVentas")[0].reset();
+        cargar_tabla(id_venta);
+        $("#info_table").removeAttr("hidden");
+
         $("#id_detalle_venta").val("");
+        $("#id_producto").val(1);
+        $("#id_lote").val(1);
+        $("#tipo_venta").val("Contado");
+        $("#estado_pago").val("Pagado");
+        $("#fecha_pago").val("");
+        $("#cantidad").val("");
+        $("#precio").val("");
+        $("#total").val("");
         $("#titulo_formulario2").text(" Información de venta");
       },
       error: function (error) {
@@ -106,8 +123,8 @@ $("#btnEnviar").click(function () {
   }
 });
 
-function cargar_tabla() {
-  // fecha
+function cargar_tabla(id_venta) {
+
   var fecha_actual = new Date();
   var yyyy = fecha_actual.getFullYear();
   var mm = fecha_actual.getMonth() + 1;
@@ -151,15 +168,12 @@ function cargar_tabla() {
     ],
     ajax: {
       type: "POST",
-      url: "tabla.php",
+      url: "tabla.php?id_venta=" + id_venta,
       dataSrc: "",
     },
     columns: [
       {
         data: "id_detalle_venta",
-      },
-      {
-        data: "id_venta",
       },
       {
         data: "id_producto",
@@ -171,22 +185,25 @@ function cargar_tabla() {
         data: "tipo_venta",
       },
       {
-        data: "estado_pago",
-      },
-      {
         data: "fecha_pago",
       },
       {
         data: "cantidad",
       },
       {
+        data: "descuento",
+      },
+      {
         data: "precio",
       },
       {
-        data: "estado",
+        data: "estado_pago",
       },
       {
         data: "editar",
+      },
+      {
+        data: "eliminar",
       },
     ],
   });
@@ -197,8 +214,6 @@ function editar(id_detalle_venta) {
   $("#id_venta").attr("readonly", true);
   // $("#id_producto").attr("readonly", true);
   $("#id_lote").attr("readonly", true);
-
-
 
   $("#titulo_formulario2").text(" Editar información de venta");
 
@@ -297,5 +312,36 @@ function llenarVentas() {
     error: function (error) {
       console.log(error);
     },
+  });
+}
+
+function eliminar(id_detalle_venta, id_venta) {
+  Swal.fire({
+    title: "Eliminar",
+    text: "El producto será eliminado de la venta ¿Desea continuar?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "SI",
+    cancelButtonText: "NO",
+  }).then((result) => {
+    if (result.value) {
+      var url = "eliminar.php";
+
+      $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "html",
+        data: { id_detalle_venta: id_detalle_venta },
+        success: function (response) {
+          cargar_tabla(id_venta);
+          Swal.fire("Hecho", response, "success");
+        },
+        error: function (error) {
+          Swal.fire("Error", error, "error");
+        },
+      });
+    }
   });
 }
