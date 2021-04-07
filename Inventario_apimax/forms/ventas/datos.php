@@ -4,7 +4,7 @@ include "../../conexion/conexion.php";
 try {
 	$id_detalle_venta = $_POST["id_detalle_venta"];
 
-	$consulta = $conexion->prepare("SELECT id_detalle_venta, id_venta, id_producto, id_lote, tipo_venta, estado_pago, fecha_pago, cantidad, precio
+	$consulta = $conexion->prepare("SELECT id_detalle_venta, id_venta, id_producto, id_lote, tipo_venta, estado_pago, fecha_pago, cantidad, descuento_pesos, descuento_porcen, precio, total
 	FROM detalle_ventas
 	WHERE id_detalle_venta = $id_detalle_venta");
 

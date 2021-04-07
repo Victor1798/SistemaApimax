@@ -5,7 +5,7 @@ include "../../conexion/conexion.php";
 try {
 	$id_venta = $_GET["id_venta"];
 
-	$consulta = $conexion->prepare("SELECT v.id_detalle_venta, v.id_venta, pr.producto, v.id_lote, v.tipo_venta, v.estado_pago, v.fecha_pago, v.cantidad, v.descuento , v.precio, v.activo
+	$consulta = $conexion->prepare("SELECT v.id_detalle_venta, v.id_venta, pr.producto, v.id_lote, v.tipo_venta, v.estado_pago, v.fecha_pago, v.cantidad, v.descuento_pesos, v.descuento_porcen, v.precio, v.total, v.activo
     FROM detalle_ventas v
 
     INNER JOIN ventas vn ON v.id_venta = vn.id_venta
@@ -17,10 +17,11 @@ try {
 	$consulta->execute();
 
 	while ($row_ventas = $consulta->fetch(PDO::FETCH_NUM)) {
-		if ($row_ventas[5] == "Pagado") {
-			$estado_pago = "<a href='estado.php?id_detalle_venta=$row_ventas[0]&estado=$row_ventas[5]' class='btn btn-success' title='Estado'>Pagado</a>";
+
+		if ($row_ventas[5] == "1") {
+			$estado_pago = "<a href='#info_table' class='btn btn-info' title='Editar' onclick='cambiar_estado($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-success' title='Estado'>Pagado</a>";
 		} else {
-			$estado_pago = "<a href='estado.php?id_detalle_venta=$row_ventas[0]&estado=$row_ventas[5]' class='btn btn-secondary' title='Estado'>No pagado</a>";
+			$estado_pago = "<a href='#info_table' class='btn btn-info' title='Editar' onclick='cambiar_estado($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-danger' title='Estado'>No pagado</a>";
 		}
 
 		$editar = "<a href='#formDetalleVentas' class='btn btn-info' title='Editar' onclick='editar($row_ventas[0]);'><i class='fas fa-pencil-alt'></i></a>";
@@ -34,8 +35,10 @@ try {
 			\"tipo_venta\":\"$row_ventas[4]\",
 			\"fecha_pago\":\"$row_ventas[6]\",
 			\"cantidad\":\"$row_ventas[7]\",
-			\"descuento\":\"$row_ventas[8]\",
-			\"precio\":\"$row_ventas[9]\",
+			\"descuento_pesos\":\"$row_ventas[8]\",
+			\"descuento_porcen\":\"$row_ventas[9]\",
+			\"precio\":\"$row_ventas[10]\",
+			\"total\":\"$row_ventas[11]\",
 			\"estado_pago\":\"$estado_pago\",
 			\"editar\":\"$editar\",
 			\"eliminar\":\"$eliminar\"

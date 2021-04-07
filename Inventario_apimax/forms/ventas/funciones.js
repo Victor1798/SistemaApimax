@@ -42,7 +42,6 @@ $("#btnCancelarCliente").click(function () {
 
   $("#info_venta").attr("hidden", true);
   $("#info_table").attr("hidden", true);
-
 });
 
 $("#btnCancelar").click(function () {
@@ -52,12 +51,17 @@ $("#btnCancelar").click(function () {
   $("#id_producto").val(1);
   $("#id_lote").val(1);
   $("#tipo_venta").val("Contado");
-  $("#estado_pago").val("Pagado");
+  $("#estado_pago").val(1);
   $("#fecha_pago").val("");
   $("#cantidad").val("");
+  $("#descuento_pesos").val("");
+  $("#descuento_porcen").val("");
+  $("#descuento_pesos").removeAttr("readonly");
+  $("#descuento_porcen").removeAttr("readonly");
   $("#precio").val("");
-  $("#total").val("");
+  $("#precio_oculto").val("");
 
+  $("#total").val("");
 });
 
 $("#btnEnviar").click(function () {
@@ -69,6 +73,7 @@ $("#btnEnviar").click(function () {
   var fecha = $("#fecha").val();
   var cantidad = $("#cantidad").val();
   var precio = $("#precio").val();
+  var total = $("#total").val();
 
   // alert(id_venta +" "+ id_producto+" "+ id_lote+" "+tipo_venta+" "+estado_pago+" "+fecha+" "+cantidad+" "+ precio)
 
@@ -103,10 +108,15 @@ $("#btnEnviar").click(function () {
         $("#id_producto").val(1);
         $("#id_lote").val(1);
         $("#tipo_venta").val("Contado");
-        $("#estado_pago").val("Pagado");
+        $("#estado_pago").val(1);
         $("#fecha_pago").val("");
         $("#cantidad").val("");
+        $("#descuento_pesos").val("");
+        $("#descuento_porcen").val("");
+        $("#descuento_pesos").removeAttr("readonly");
+        $("#descuento_porcen").removeAttr("readonly");
         $("#precio").val("");
+        $("#precio_oculto").val("");
         $("#total").val("");
         $("#titulo_formulario2").text(" Información de venta");
       },
@@ -124,7 +134,6 @@ $("#btnEnviar").click(function () {
 });
 
 function cargar_tabla(id_venta) {
-
   var fecha_actual = new Date();
   var yyyy = fecha_actual.getFullYear();
   var mm = fecha_actual.getMonth() + 1;
@@ -191,10 +200,16 @@ function cargar_tabla(id_venta) {
         data: "cantidad",
       },
       {
-        data: "descuento",
+        data: "descuento_pesos",
+      },
+      {
+        data: "descuento_porcen",
       },
       {
         data: "precio",
+      },
+      {
+        data: "total",
       },
       {
         data: "estado_pago",
@@ -211,9 +226,6 @@ function cargar_tabla(id_venta) {
 
 function editar(id_detalle_venta) {
   $("#info_venta").removeAttr("hidden");
-  $("#id_venta").attr("readonly", true);
-  // $("#id_producto").attr("readonly", true);
-  $("#id_lote").attr("readonly", true);
 
   $("#titulo_formulario2").text(" Editar información de venta");
 
@@ -235,24 +247,10 @@ function editar(id_detalle_venta) {
       $("#estado_pago").val(array[5]);
       $("#fecha_pago").val(array[6]);
       $("#cantidad").val(array[7]);
-      $("#precio").val(array[8]);
-    },
-    error: function (error) {
-      Swal.fire("Error", error, "error");
-    },
-  });
-}
-function cambiar_estado(id_desperdicio) {
-  var url = "estado.php";
-
-  $.ajax({
-    url: url,
-    type: "POST",
-    dataType: "html",
-    data: { id_desperdicio: id_desperdicio },
-    success: function (response) {
-      cargar_tabla();
-      Swal.fire("Hecho", response, "success");
+      $("#descuento_pesos").val(array[8]);
+      $("#descuento_porcen").val(array[9]);
+      $("#precio").val(array[10]);
+      $("#total").val(array[11]);
     },
     error: function (error) {
       Swal.fire("Error", error, "error");
@@ -260,10 +258,14 @@ function cambiar_estado(id_desperdicio) {
   });
 }
 
-$("#id_producto").change(function () {
-  var id_producto = this.value;
+function calcular_precio() {
+  var id_producto = $("#id_producto").val();
+  // alert(id_producto);
 
   var cantidad = $("#cantidad").val();
+  var descuento_pesos = $("#descuento_pesos").val();
+  var descuento_porcen = $("#descuento_porcen").val();
+
   var total;
 
   var url = "calc_precio.php";
@@ -276,24 +278,99 @@ $("#id_producto").change(function () {
     success: function (response) {
       var array = eval(response);
       $("#precio").val(array[2]);
+      var precio = array[2];
 
-      total = array[2] * cantidad;
+      if (descuento_pesos != "") {
+        $("#cantidad").keyup(function () {
+          $("#total").val("");
 
-      $("#total").val(total);
+          var cantidad = $("#cantidad").val();
+          var descuento_pesos = $("#descuento_pesos").val();
+          var total;
 
-      $("#cantidad").keyup(function () {
-        var cantidad = $("#cantidad").val();
-        var total;
+          operacion_descuento = precio - descuento_pesos;
+          total = operacion_descuento * cantidad;
+          $("#total").val(total);
+          $("#precio_oculto").val(operacion_descuento);
+        });
+        $("#descuento_pesos").keyup(function () {
+          $("#total").val("");
 
-        total = array[2] * cantidad;
-        $("#total").val(total);
-      });
+          var cantidad = $("#cantidad").val();
+          var descuento_pesos = $("#descuento_pesos").val();
+          var total;
+
+          operacion_descuento = precio - descuento_pesos;
+          total = operacion_descuento * cantidad;
+          $("#total").val(total);
+          $("#precio_oculto").val(operacion_descuento);
+        });
+      } else if (descuento_porcen != "") {
+        $("#cantidad").keyup(function () {
+          $("#total").val("");
+
+          var cantidad = $("#cantidad").val();
+          var descuento_porcen = $("#descuento_porcen").val();
+          var total;
+
+          precio_desc = precio / 100;
+
+          operacion_desc = precio_desc * descuento_porcen;
+          precio_descuento = precio - operacion_desc;
+
+          total = precio_descuento * cantidad;
+          $("#total").val(total);
+          $("#precio_oculto").val(precio_descuento);
+        });
+        $("#descuento_porcen").keyup(function () {
+          $("#total").val("");
+
+          var cantidad = $("#cantidad").val();
+          var descuento_porcen = $("#descuento_porcen").val();
+          var total;
+
+          precio_desc = precio / 100;
+
+          operacion_desc = precio_desc * descuento_porcen;
+          precio_descuento = precio - operacion_desc;
+
+          total = precio_descuento * cantidad;
+          $("#total").val(total);
+          $("#precio_oculto").val(precio_descuento);
+        });
+      } else {
+        $("#cantidad").keyup(function () {
+          $("#total").val("");
+          var cantidad = $("#cantidad").val();
+          var total;
+
+          total = array[2] * cantidad;
+          $("#total").val(total);
+          $("#precio_oculto").val(precio);
+        });
+      }
     },
     error: function (error) {
       Swal.fire("Error", error, "error");
     },
   });
-});
+}
+
+function pesos_porcentaje() {
+  var descuento_pesos = $("#descuento_pesos").val();
+  var descuento_porcen = $("#descuento_porcen").val();
+
+  if (descuento_pesos == "" && descuento_porcen == "") {
+    $("#descuento_pesos").removeAttr("readonly");
+    $("#descuento_porcen").removeAttr("readonly");
+  } else if (descuento_pesos == "") {
+    $("#descuento_pesos").attr("readonly", true);
+    $("#descuento_porcen").removeAttr("readonly");
+  } else {
+    $("#descuento_porcen").attr("readonly", true);
+    $("#descuento_pesos").removeAttr("readonly");
+  }
+}
 
 function llenarVentas() {
   $.ajax({
@@ -306,6 +383,46 @@ function llenarVentas() {
         $("#id_venta").html(sinValor);
       } else {
         $("#id_venta").html(datos);
+        console.log(datos);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+function llenarProductos() {
+  $.ajax({
+    url: "llenar_productos.php",
+    type: "POST",
+    dataType: "html",
+    success: function (datos) {
+      if (datos == "sin-datos") {
+        var sinValor =
+          "<option value='1'>No hay productos registrados</option>";
+        $("#id_producto").html(sinValor);
+      } else {
+        $("#id_producto").html(datos);
+        console.log(datos);
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+function llenarLotes() {
+  $.ajax({
+    url: "llenar_lotes.php",
+    type: "POST",
+    dataType: "html",
+    success: function (datos) {
+      if (datos == "sin-datos") {
+        var sinValor = "<option value='1'>No hay lotes registrados</option>";
+        $("#id_lote").html(sinValor);
+      } else {
+        $("#id_lote").html(datos);
         console.log(datos);
       }
     },
@@ -334,6 +451,36 @@ function eliminar(id_detalle_venta, id_venta) {
         type: "POST",
         dataType: "html",
         data: { id_detalle_venta: id_detalle_venta },
+        success: function (response) {
+          cargar_tabla(id_venta);
+          Swal.fire("Hecho", response, "success");
+        },
+        error: function (error) {
+          Swal.fire("Error", error, "error");
+        },
+      });
+    }
+  });
+}
+function cambiar_estado(id_detalle_venta, estado_pago, id_venta) {
+  Swal.fire({
+    title: "Cambiar estado",
+    text: "¿El producto ha sido pagado?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "SI",
+    cancelButtonText: "NO",
+  }).then((result) => {
+    if (result.value) {
+      var url = "estado_pago.php";
+
+      $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "html",
+        data: { id_detalle_venta: id_detalle_venta, estado_pago: estado_pago },
         success: function (response) {
           cargar_tabla(id_venta);
           Swal.fire("Hecho", response, "success");

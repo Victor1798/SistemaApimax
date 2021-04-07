@@ -9,8 +9,18 @@ $tipo_venta = $_POST['tipo_venta'];
 $estado_pago = $_POST['estado_pago'];
 $fecha_pago = $_POST['fecha_pago'];
 $cantidad = $_POST['cantidad'];
-$precio = $_POST['precio'];
+$descuento_pesos = $_POST['descuento_pesos'];
+$descuento_porcen = $_POST['descuento_porcen'];
+
+$precio = $_POST['precio_oculto'];
 $total = $_POST['total'];
+
+if ($descuento_pesos == "") {
+	$descuento_pesos = 0;
+}
+if ($descuento_porcen == "") {
+	$descuento_porcen = 0;
+}
 
 $fecha_registro = date("y.m.d");
 $activo = 1;
@@ -19,8 +29,8 @@ $activo = 1;
 try {
 	if (empty($id_detalle_venta)) {
 
-		$consulta = $conexion->prepare("INSERT INTO detalle_ventas(id_venta, id_producto, id_lote, tipo_venta, estado_pago, fecha_pago, cantidad, precio, fecha_registro, activo)
-		VALUES('$id_venta', '$id_producto', '$id_lote', '$tipo_venta','$estado_pago', '$fecha_pago','$cantidad', '$precio', '$fecha_registro', '$activo')");
+		$consulta = $conexion->prepare("INSERT INTO detalle_ventas(id_venta, id_producto, id_lote, tipo_venta, estado_pago, fecha_pago, cantidad, descuento_pesos, descuento_porcen, precio, total, fecha_registro, activo)
+		VALUES('$id_venta', '$id_producto', '$id_lote', '$tipo_venta','$estado_pago', '$fecha_pago','$cantidad','$descuento_pesos','$descuento_porcen', '$precio','$total', '$fecha_registro', '$activo')");
 
 		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_vendida = '$cantidad'+cantidad_vendida
 		WHERE id_producto = '$id_producto' && id_lote = '$id_lote'");
@@ -37,7 +47,7 @@ try {
 		$mensaje = "Registrado correctamente";
 	} else {
 
-		$consulta = $conexion->prepare("UPDATE detalle_ventas SET id_venta = '$id_venta', id_producto = '$id_producto', id_lote = '$id_lote', tipo_venta = '$tipo_venta', estado_pago = '$estado_pago', fecha_pago = '$fecha_pago', cantidad = '$cantidad', precio = '$precio', activo = '$activo'
+		$consulta = $conexion->prepare("UPDATE detalle_ventas SET id_venta = '$id_venta', id_producto = '$id_producto', id_lote = '$id_lote', tipo_venta = '$tipo_venta', estado_pago = '$estado_pago', fecha_pago = '$fecha_pago', cantidad = '$cantidad', descuento_pesos = '$descuento_pesos', descuento_porcen = '$descuento_porcen', precio = '$precio', total = '$total', activo = '$activo'
 		WHERE id_detalle_venta = '$id_detalle_venta'");
 
 		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_vendida = '$cantidad'+cantidad_vendida

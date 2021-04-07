@@ -8,18 +8,6 @@ INNER JOIN personas p ON c.id_persona = p.id_persona
 ORDER BY id_cliente");
 $clientes->execute();
 
-$productos = $conexion->prepare("SELECT id_producto, producto, precio FROM productos WHERE activo = 1");
-$productos->execute();
-
-$lotes = $conexion->prepare("SELECT id_lote FROM lotes WHERE activo = 1");
-$lotes->execute();
-
-// $ventas = $conexion->prepare("SELECT v.id_venta, CONCAT(p.nombre,' ', p.ap_paterno,' ', p.ap_materno)AS NameFull,  v.activo
-// FROM ventas v
-// INNER JOIN clientes c ON v.id_cliente = c.id_cliente
-// INNER JOIN personas p ON c.id_persona = p.id_persona
-// ORDER BY id_venta");
-// $ventas->execute();
 
 ?>
 <!DOCTYPE html>
@@ -282,66 +270,64 @@ $lotes->execute();
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-sm-12 col-md-6">
+                      <div class="form-group col-sm-12 col-md-7">
                         <label for="id_producto">Producto:</label>
-                        <select name="id_producto" id="id_producto" class="form-control" required>
-                          <?php
-                          while ($row_p = $productos->fetch(PDO::FETCH_NUM)) {
-                          ?>
-                            <option value="<?php echo $row_p[0]; ?>"><?php echo $row_p[1]; ?> </option>
-                          <?php
-                          }
-                          ?>
+                        <select name="id_producto" id="id_producto" class="form-control" onchange="calcular_precio();" required>
+
                         </select>
                       </div>
-                      <div class="form-group col-sm-12 col-md-6">
+                      <div class="form-group col-sm-12 col-md-5">
                         <label for="id_lote">Lote:</label>
                         <select name="id_lote" id="id_lote" class="form-control" required>
-                          <?php
-                          while ($row_l = $lotes->fetch(PDO::FETCH_NUM)) {
-                          ?>
-                            <option value="<?php echo $row_l[0]; ?>"><?php echo $row_l[0]; ?> </option>
-                          <?php
-                          }
-                          ?>
+
                         </select>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="form-group col-sm-12 col-md-6">
+                      <div class="form-group col-sm-12 col-md-4">
                         <label for="tipo_venta">Tipo de venta:</label>
                         <select name="tipo_venta" id="tipo_venta" class="form-control" required>
                           <option value="Contado">Contado</option>
                           <option value="Consigna">Consigna</option>
                         </select>
                       </div>
-                      <div class="form-group col-sm-12 col-md-3">
+                      <div class="form-group col-sm-12 col-md-4">
                         <label for="estado_pago">Estado de pago:</label>
                         <select name="estado_pago" id="estado_pago" class="form-control" required>
-                          <option value="Pagado">Pagado</option>
-                          <option value="No pagado">No pagado</option>
+                          <option value="1">Pagado</option>
+                          <option value="2">No pagado</option>
                         </select>
                       </div>
-                      <div class="form-group col-sm-12 col-md-3">
+                      <div class="form-group col-sm-12 col-md-4">
                         <label for="fecha_pago">Fecha:</label>
                         <input type="date" class="form-control" id="fecha_pago" name="fecha_pago" title="Ingresa la fecha...." required>
                       </div>
                     </div>
+                    <hr>
                     <div class="row">
-                      <div class="form-group col-sm-12 col-md-4">
-                        <label for="cantidad">Cantidad de productos:</label>
-                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required>
+                      <div class="form-group col-sm-12 col-md-2">
+                        <label for="descuento_pesos">Descuento en $:</label>
+                        <input type="number" id="descuento_pesos" name="descuento_pesos" class="form-control" placeholder="$" required onkeyup="pesos_porcentaje()" onkeyup="calcular_precio()">
                       </div>
-                      <div class="form-group col-sm-12 col-md-4">
+                      <div class="form-group col-sm-12 col-md-2">
+                        <label for="descuento_porcen">Descuento en %:</label>
+                        <input type="number" id="descuento_porcen" name="descuento_porcen" class="form-control" placeholder="%" required onkeyup="pesos_porcentaje()" onkeyup="calcular_precio()">
+                      </div>
+                      <div class="form-group col-sm-12 col-md-3">
+                        <label for="cantidad">Cantidad de productos:</label>
+                        <input type="number" id="cantidad" name="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required onkeyup="calcular_precio()">
+                      </div>
+                      <div class="form-group col-sm-12 col-md-3">
                         <label for="precio">Precio:</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                           </div>
                           <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio del producto..." step="any" required readonly>
+                          <input type="number" class="form-control" id="precio_oculto" name="precio_oculto" step="any" hidden >
                         </div>
                       </div>
-                      <div class="form-group col-sm-12 col-md-4">
+                      <div class="form-group col-sm-12 col-md-2">
                         <label for="total">Total:</label>
                         <div class="input-group">
                           <div class="input-group-prepend">
@@ -380,8 +366,10 @@ $lotes->execute();
                             <th class="bg-gradient-warning">Tipo de venta</th>
                             <th class="bg-gradient-warning">Fecha de pago</th>
                             <th class="bg-gradient-warning">Cantidad</th>
-                            <th class="bg-gradient-warning">Descuento</th>
+                            <th class="bg-gradient-warning">Descuento ($)</th>
+                            <th class="bg-gradient-warning">Descuento (%)</th>
                             <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
                             <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Editar</th>
                             <th class="bg-gradient-warning">Eliminar</th>
@@ -398,8 +386,10 @@ $lotes->execute();
                             <th class="bg-gradient-warning">Tipo de venta</th>
                             <th class="bg-gradient-warning">Fecha de pago</th>
                             <th class="bg-gradient-warning">Cantidad</th>
-                            <th class="bg-gradient-warning">Descuento</th>
+                            <th class="bg-gradient-warning">Descuento ($)</th>
+                            <th class="bg-gradient-warning">Descuento (%)</th>
                             <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
                             <th class="bg-gradient-warning">Estado de pago</th>
                             <th class="bg-gradient-warning">Editar</th>
                             <th class="bg-gradient-warning">Eliminar</th>
@@ -441,6 +431,8 @@ $lotes->execute();
 
       $('#tabla_detalle_ventas').DataTable()
       llenarVentas();
+      llenarProductos();
+      llenarLotes();
       // cargar_tabla();
 
     });
