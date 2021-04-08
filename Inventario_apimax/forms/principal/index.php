@@ -133,6 +133,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
                     <p>Salidas forzosas</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../seguimiento_ventas/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Seguimiento de ventas</p>
+                  </a>
+                </li>
               </ul>
             <li id="modulo_usuarios" class="nav-item has-treeview menu-close" hidden>
               <a href="#" class="nav-link">
@@ -233,15 +239,15 @@ include '../../seguridad/verificar_sesion_inicio.php';
             </div>
             <div class="col-lg-3 col-6">
               <!-- small box -->
-              <div class="small-box bg-primary">
+              <div class="small-box bg-info">
                 <div class="inner">
-                  <h4>Reportes</h4>
-                  <p>Apimax</p>
+                  <h4>Seguimiento de ventas</h4>
+                  <p>Ventas</p>
                 </div>
                 <div class="icon">
-                  <i class="fas fa-chart-bar"></i>
+                  <i class="ion ion-bag"></i>
                 </div>
-                <a href="../reportes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="../seguimiento_ventas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->
@@ -301,6 +307,8 @@ include '../../seguridad/verificar_sesion_inicio.php';
               </div>
             </div>
             <div class="col-lg-3 col-6">
+            </div>
+            <div class="col-lg-3 col-6">
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
@@ -326,6 +334,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 <a href="../lotes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
+
             <!-- ./col -->
           </div>
           <div id="botones_usuarios" class="row" hidden>
@@ -366,6 +375,19 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   <i class="ion ion-person-add"></i>
                 </div>
                 <a href="../clientes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-primary">
+                <div class="inner">
+                  <h4>Reportes</h4>
+                  <p>Apimax</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-chart-bar"></i>
+                </div>
+                <a href="../reportes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

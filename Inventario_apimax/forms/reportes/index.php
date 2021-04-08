@@ -206,14 +206,14 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">
-                <h2 class="card-title" id="titulo_formulario"> Filtro de busqueda</h2>
+                <h2 class="card-title" id="titulo_formulario">Filtro de Búsqueda</h2>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <div id="formReportes" class="card-body">
                 <form action="#" method="POST" id="frmReportes" data-action="agregar">
                   <div class="card-body">
-                    <div class="row">
+                    <div class="row" id="date_filter">
                       <div class="form-group col-sm-12 col-md-6">
                         <label for="fecha_inicio">Fecha inicio:</label>
                         <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" title="Ingresa la fecha de inicio" required>
@@ -238,7 +238,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
           <div id="info_reportes" class="col-md-12" hidden>
             <div class="card card-warning">
               <div class="card-header ">
-                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla reportes</h4>
+                <h4 class="card-title"><i class="fas fa-list"></i> Registros</h4>
               </div>
               <div class="card-body">
                 <div class="row">
@@ -247,11 +247,27 @@ include '../../seguridad/verificar_sesion_inicio.php';
                       <table id="tabla_reportes" class="table table-bordered table-striped">
                         <thead class="text-center">
                           <tr>
-                            <!-- <th class="bg-gradient-warning">#</th> -->
-                            <th class="bg-gradient-warning">Cantidad de productos produccion</th>
-                            <th class="bg-gradient-warning">Cantidad de productos vendidos</th>
-                            <th class="bg-gradient-warning">Ingresos generados</th>
-
+                            <th class="bg-gradient-warning"># Venta</th>
+                            <th class="bg-gradient-warning">Cliente</th>
+                            <th class="bg-gradient-warning">Estado de Pago</th>
+                            <th class="bg-gradient-warning">Fecha de Venta</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Pendiente</th>
+                            <th class="bg-gradient-warning">Adeudos</th>
+                            <th class="bg-gradient-warning">Fecha Registro</th>
+                            <th class="bg-gradient-warning">Activo</th>
+                            <th class="bg-gradient-warning"># Detalle Venta</th>
+                            <th class="bg-gradient-warning">Num.Venta</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Tipo Venta</th>
+                            <th class="bg-gradient-warning">Estado Pago</th>
+                            <th class="bg-gradient-warning">Fecha Pago</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Fecha Registro</th>
+                            <th class="bg-gradient-warning">Activo</th>
                           </tr>
                         </thead>
                         <tbody class="text-center" id="cuerpo_tabla">
@@ -259,12 +275,97 @@ include '../../seguridad/verificar_sesion_inicio.php';
                         </tbody>
                         <tfoot class="text-center">
                           <tr>
-                            <th class="bg-gradient-warning">Cantidad de productos produccion</th>
-                            <th class="bg-gradient-warning">Cantidad de productos vendidos</th>
-                            <th class="bg-gradient-warning">Ingresos generados</th>
+                            <th class="bg-gradient-warning"># Venta</th>
+                            <th class="bg-gradient-warning">Cliente</th>
+                            <th class="bg-gradient-warning">Estado de Pago</th>
+                            <th class="bg-gradient-warning">Fecha de Venta</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Pendiente</th>
+                            <th class="bg-gradient-warning">Adeudos</th>
+                            <th class="bg-gradient-warning">Fecha Registro</th>
+                            <th class="bg-gradient-warning">Activo</th>
+                            <th class="bg-gradient-warning"># Detalle Venta</th>
+                            <th class="bg-gradient-warning">Num.Venta</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Tipo Venta</th>
+                            <th class="bg-gradient-warning">Estado Pago</th>
+                            <th class="bg-gradient-warning">Fecha Pago</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Fecha Registro</th>
+                            <th class="bg-gradient-warning">Activo</th>
                           </tr>
                         </tfoot>
                       </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="info_reportes" class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header">
+                <h2 class="card-title" id="titulo_total"><i class="fas fa-chart-pie"></i> Totales</h2>
+              </div>
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="form-group col-sm-12 col-md-2">
+                    <label for="ventas">Ventas:</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-shopping-cart"></span>
+                        </div>
+                      </div>
+                      <input type="text" id="ventas" name="ventas" class="form-control" placeholder="Total Ventas" required readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-2">
+                    <label for="produccion">Producción:</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-chart-bar"></span>
+                        </div>
+                      </div>
+                      <input type="text" id="produccion" name="produccion" class="form-control" placeholder="Total" required readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-2">
+                    <label for="desperdicio">Desperdicio:</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-trash-alt"></span>
+                        </div>
+                      </div>
+                      <input type="text" id="desperdicio" name="desperdicio" class="form-control" placeholder="Total" required readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-2">
+                    <label for="descuentos">Descuentos:</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-percent"></span>
+                        </div>
+                      </div>
+                      <input type="text" id="descuentos" name="descuentos" class="form-control" placeholder="Total" required readonly>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 col-md-2">
+                    <label for="ingresos">Ingresos:</label>
+                    <div class="input-group mb-3">
+                      <div class="input-group-append">
+                        <div class="input-group-text">
+                          <span class="fas fa-dollar-sign"></span>
+                        </div>
+                      </div>
+                      <input type="text" id="ingresos" name="ingresos" class="form-control" placeholder="Total" required readonly>
                     </div>
                   </div>
                 </div>
@@ -299,7 +400,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
       }
 
       $('#tabla_reportes').DataTable()
-      // cargar_tabla();
 
     });
   </script>
