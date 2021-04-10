@@ -27,6 +27,8 @@ $("#btnEnviarCliente").click(function () {
     Swal.fire("Advertencia", "Favor de seleccionar un cliente", "warning");
   }
   $("#info_venta").removeAttr("hidden");
+  $("#finalizar_venta").removeAttr("hidden");
+
   $("#id_producto").focus();
 });
 
@@ -42,6 +44,7 @@ $("#btnCancelarCliente").click(function () {
 
   $("#info_venta").attr("hidden", true);
   $("#info_table").attr("hidden", true);
+  $("#finalizar_venta").attr("hidden", true);
 });
 
 $("#btnCancelar").click(function () {
@@ -66,6 +69,7 @@ $("#btnCancelar").click(function () {
 
 $("#btnEnviar").click(function () {
   var id_venta = $("#id_venta").val();
+  $("#id_venta_oculto").val(id_venta);
   var id_producto = $("#id_producto").val();
   var id_lote = $("#id_lote").val();
   var tipo_venta = $("#tipo_venta").val();
@@ -103,6 +107,7 @@ $("#btnEnviar").click(function () {
         }
         cargar_tabla(id_venta);
         $("#info_table").removeAttr("hidden");
+        $("#finalizar_venta").removeAttr("hidden");
 
         $("#id_detalle_venta").val("");
         $("#id_producto").val(1);
@@ -212,10 +217,10 @@ function cargar_tabla(id_venta) {
         data: "total",
       },
       {
-        data: "estado_pago",
+        data: "dinero_descontado",
       },
       {
-        data: "editar",
+        data: "estado_pago",
       },
       {
         data: "eliminar",
@@ -287,11 +292,15 @@ function calcular_precio() {
           var cantidad = $("#cantidad").val();
           var descuento_pesos = $("#descuento_pesos").val();
           var total;
+          var total_no_descuento = precio * cantidad;
 
           operacion_descuento = precio - descuento_pesos;
+
           total = operacion_descuento * cantidad;
+          total_desc = total_no_descuento - total;
+
           $("#total").val(total);
-          $("#precio_oculto").val(operacion_descuento);
+          $("#precio_oculto").val(total_desc);
         });
         $("#descuento_pesos").keyup(function () {
           $("#total").val("");
@@ -299,11 +308,14 @@ function calcular_precio() {
           var cantidad = $("#cantidad").val();
           var descuento_pesos = $("#descuento_pesos").val();
           var total;
+          var total_no_descuento = precio * cantidad;
 
           operacion_descuento = precio - descuento_pesos;
           total = operacion_descuento * cantidad;
+          total_desc = total_no_descuento - total;
+
           $("#total").val(total);
-          $("#precio_oculto").val(operacion_descuento);
+          $("#precio_oculto").val(total_desc);
         });
       } else if (descuento_porcen != "") {
         $("#cantidad").keyup(function () {
@@ -312,6 +324,7 @@ function calcular_precio() {
           var cantidad = $("#cantidad").val();
           var descuento_porcen = $("#descuento_porcen").val();
           var total;
+          var total_no_descuento = precio * cantidad;
 
           precio_desc = precio / 100;
 
@@ -319,8 +332,10 @@ function calcular_precio() {
           precio_descuento = precio - operacion_desc;
 
           total = precio_descuento * cantidad;
+          total_desc = total_no_descuento - total;
+
           $("#total").val(total);
-          $("#precio_oculto").val(precio_descuento);
+          $("#precio_oculto").val(total_desc);
         });
         $("#descuento_porcen").keyup(function () {
           $("#total").val("");
@@ -328,6 +343,7 @@ function calcular_precio() {
           var cantidad = $("#cantidad").val();
           var descuento_porcen = $("#descuento_porcen").val();
           var total;
+          var total_no_descuento = precio * cantidad;
 
           precio_desc = precio / 100;
 
@@ -335,8 +351,10 @@ function calcular_precio() {
           precio_descuento = precio - operacion_desc;
 
           total = precio_descuento * cantidad;
+          total_desc = total_no_descuento - total;
+
           $("#total").val(total);
-          $("#precio_oculto").val(precio_descuento);
+          $("#precio_oculto").val(total_desc);
         });
       } else {
         $("#cantidad").keyup(function () {
@@ -346,9 +364,60 @@ function calcular_precio() {
 
           total = array[2] * cantidad;
           $("#total").val(total);
-          $("#precio_oculto").val(precio);
+          $("#precio_oculto").val("0");
         });
       }
+    },
+    error: function (error) {
+      Swal.fire("Error", error, "error");
+    },
+  });
+}
+
+$("#btnFinVenta").click(function () {
+  var id_venta = $("#id_venta").val();
+
+  var url1 = "totales_tabla.php";
+
+  $.ajax({
+    url: url1,
+    type: "POST",
+    dataType: "html",
+    data: { id_venta: id_venta },
+    success: function (response) {
+      var array = eval(response);
+      calcular_total_descuentos(id_venta, array[0], array[1])
+    },
+  });
+});
+
+function calcular_total_descuentos(id_venta, total_tabla_descuento, total) {
+  var url = "cerrar_venta.php";
+
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "html",
+    data: {id_venta:id_venta, total_tabla_descuento:total_tabla_descuento, total:total},
+    success: function (response) {
+      Swal.fire("Éxito","Venta finalizada","success");
+
+      $("#titulo_formulario1").text(" Nueva venta");
+      $("#titulo_formulario2").text(" Información de venta");
+
+      $("#id_venta_cliente").val("");
+      $("#id_detalle_venta").val("");
+      $("#id_venta_oculto").val("");
+
+
+      $("#frmVentas")[0].reset();
+      $("#frmDetalleVentas")[0].reset();
+      $("#frmFinVenta")[0].reset();
+
+
+      $("#info_venta").attr("hidden", true);
+      $("#info_table").attr("hidden", true);
+      $("#finalizar_venta").attr("hidden", true);
     },
     error: function (error) {
       Swal.fire("Error", error, "error");

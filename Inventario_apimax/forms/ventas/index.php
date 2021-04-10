@@ -242,7 +242,7 @@ $clientes->execute();
                   <!-- /.card-body -->
                   <div class="card-footer">
                     <div class="form-group col-sm-12 col-md-12">
-                      <button type="reset" id="btnCancelarCliente" class="btn btn-secondary"><i class="nav-icon fas fa-times"></i> Cancelar</button>
+                      <!-- <button type="reset" id="btnCancelarCliente" class="btn btn-secondary"><i class="nav-icon fas fa-times"></i> Cancelar</button> -->
                       <button type="button" id="btnEnviarCliente" class="btn btn-warning float-right"><i class="nav-icon fas fa-check"></i> Aceptar</button>
                     </div>
                   </div>
@@ -324,7 +324,7 @@ $clientes->execute();
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                           </div>
                           <input type="number" class="form-control" id="precio" name="precio" placeholder="Precio del producto..." step="any" required readonly>
-                          <input type="number" class="form-control" id="precio_oculto" name="precio_oculto" step="any" hidden >
+                          <input type="number" class="form-control" id="precio_oculto" name="precio_oculto" step="any" hidden>
                         </div>
                       </div>
                       <div class="form-group col-sm-12 col-md-2">
@@ -370,8 +370,9 @@ $clientes->execute();
                             <th class="bg-gradient-warning">Descuento (%)</th>
                             <th class="bg-gradient-warning">Precio</th>
                             <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
                             <th class="bg-gradient-warning">Estado de pago</th>
-                            <th class="bg-gradient-warning">Editar</th>
+                            <!-- <th class="bg-gradient-warning">Editar</th> -->
                             <th class="bg-gradient-warning">Eliminar</th>
                           </tr>
                         </thead>
@@ -390,8 +391,9 @@ $clientes->execute();
                             <th class="bg-gradient-warning">Descuento (%)</th>
                             <th class="bg-gradient-warning">Precio</th>
                             <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
                             <th class="bg-gradient-warning">Estado de pago</th>
-                            <th class="bg-gradient-warning">Editar</th>
+                            <!-- <th class="bg-gradient-warning">Editar</th> -->
                             <th class="bg-gradient-warning">Eliminar</th>
                           </tr>
                         </tfoot>
@@ -399,6 +401,31 @@ $clientes->execute();
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div id="finalizar_venta" class="col-sm-12 col-md-12 col-lg-12" hidden>
+            <!-- general form elements -->
+            <div class="card card-warning">
+              <div id="formFinVenta" class="card-body">
+                <form action="#" method="POST" id="frmFinVenta" data-action="agregar">
+                <input type="number" class="form-control" id="id_venta_oculto" name="id_venta_oculto" step="any" hidden>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="form-group col-sm-12 col-md-12">
+                      <!-- <input type="number" class="form-control" id="total_tabla_descuento" name="total_tabla_descuento" step="any"> -->
+
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <center>
+                      <div class="form-group col-sm-12 col-md-4">
+                        <button type="button" id="btnFinVenta" class="btn btn-warning float-center btn-block">Finalizar venta</button>
+                      </div>
+                    </center>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
