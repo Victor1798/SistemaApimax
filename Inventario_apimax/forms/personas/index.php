@@ -142,6 +142,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
                     <p>Salidas forzosas</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="../seguimiento_ventas/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Seguimiento de ventas</p>
+                  </a>
+                </li>
               </ul>
             <li id="modulo_usuarios" class="nav-item has-treeview menu-open" hidden>
               <a href="#" class="nav-link">
@@ -171,6 +177,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
               </ul>
+              <li id="modulo_reportes" class="nav-item" hidden>
+              <a href="../reportes/index.php" class="nav-link">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>Reportes</p>
+              </a>
+            </li>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -359,9 +371,13 @@ include '../../seguridad/verificar_sesion_inicio.php';
       if (tipo_user == 'Administrador') {
         $("#modulo_modulos").removeAttr("hidden");
         $("#modulo_usuarios").removeAttr("hidden");
+        $("#modulo_reportes").removeAttr("hidden");
+
       } else {
         $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
+        $("#modulo_reportes").attr("type", "hidden");
+
       }
     });
   </script>

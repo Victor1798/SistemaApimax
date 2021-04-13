@@ -37,15 +37,6 @@ try {
 		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_vendida = '$cantidad'+cantidad_vendida
 		WHERE id_producto = '$id_producto' && id_lote = '$id_lote'");
 
-		// if ($estado_pago == "Pagado") {
-		// 	$consulta3 = $conexion->prepare("UPDATE ventas SET estado_pago = '$estado_pago', total = '$total', subtotal = '$total' , pendiente = '0'
-		// 	WHERE id_venta = '$id_venta'");
-		// 	}
-		// else {
-		// 	$consulta3 = $conexion->prepare("UPDATE ventas SET estado_pago = '$estado_pago', total = '0', subtotal = '0', pendiente = '$total'
-		// 	WHERE id_venta = '$id_venta'");
-		// 	}
-
 		$mensaje = "Registrado correctamente";
 	} else {
 
@@ -55,14 +46,6 @@ try {
 		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_vendida = '$cantidad'+cantidad_vendida
 		WHERE id_producto = '$id_producto' && id_lote = '$id_lote'");
 
-		// if ($estado_pago == "Pagado") {
-		// 	$consulta3 = $conexion->prepare("UPDATE ventas SET estado_pago = '$estado_pago', total = '$total', subtotal = '$total' , pendiente = '0'
-		// 	WHERE id_venta = '$id_venta'");
-		// 	}
-		// else {
-		// 	$consulta3 = $conexion->prepare("UPDATE ventas SET estado_pago = '$estado_pago', total = '0', subtotal = '0', pendiente = '$total'
-		// 	WHERE id_venta = '$id_venta'");
-		// 	}
 		$mensaje = "Actualizado correctamente";
 	}
 

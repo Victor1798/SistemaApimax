@@ -1,1 +1,0 @@
-SELECT * FROM `ventas` INNER JOIN detalle_ventas ON ventas.id_venta = detalle_ventas.id_detalle_venta

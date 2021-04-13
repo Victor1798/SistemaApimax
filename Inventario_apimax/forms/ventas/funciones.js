@@ -386,7 +386,7 @@ $("#btnFinVenta").click(function () {
     data: { id_venta: id_venta },
     success: function (response) {
       var array = eval(response);
-      calcular_total_descuentos(id_venta, array[0], array[1])
+      calcular_total_descuentos(id_venta, array[0], array[1]);
     },
   });
 });
@@ -398,9 +398,13 @@ function calcular_total_descuentos(id_venta, total_tabla_descuento, total) {
     url: url,
     type: "POST",
     dataType: "html",
-    data: {id_venta:id_venta, total_tabla_descuento:total_tabla_descuento, total:total},
+    data: {
+      id_venta: id_venta,
+      total_tabla_descuento: total_tabla_descuento,
+      total: total,
+    },
     success: function (response) {
-      Swal.fire("Éxito","Venta finalizada","success");
+      Swal.fire("Éxito", "Venta finalizada", "success");
 
       $("#titulo_formulario1").text(" Nueva venta");
       $("#titulo_formulario2").text(" Información de venta");
@@ -409,11 +413,9 @@ function calcular_total_descuentos(id_venta, total_tabla_descuento, total) {
       $("#id_detalle_venta").val("");
       $("#id_venta_oculto").val("");
 
-
       $("#frmVentas")[0].reset();
       $("#frmDetalleVentas")[0].reset();
       $("#frmFinVenta")[0].reset();
-
 
       $("#info_venta").attr("hidden", true);
       $("#info_table").attr("hidden", true);
@@ -501,7 +503,7 @@ function llenarLotes() {
   });
 }
 
-function eliminar(id_detalle_venta, id_venta) {
+function eliminar(id_detalle_venta,id_venta,id_producto,id_lote,valor_res_entradas) {
   Swal.fire({
     title: "Eliminar",
     text: "El producto será eliminado de la venta ¿Desea continuar?",
@@ -515,11 +517,18 @@ function eliminar(id_detalle_venta, id_venta) {
     if (result.value) {
       var url = "eliminar.php";
 
+      // alert( id_detalle_venta +' '+ id_venta+' '+ id_producto+' '+id_lote+' '+valor_res_entradas);
+
       $.ajax({
         url: url,
         type: "POST",
         dataType: "html",
-        data: { id_detalle_venta: id_detalle_venta },
+        data: {
+          id_detalle_venta: id_detalle_venta,
+          id_producto: id_producto,
+          id_lote: id_lote,
+          valor_res_entradas: valor_res_entradas,
+        },
         success: function (response) {
           cargar_tabla(id_venta);
           Swal.fire("Hecho", response, "success");
@@ -531,6 +540,35 @@ function eliminar(id_detalle_venta, id_venta) {
     }
   });
 }
+
+function res_producto_entradas(id_detalle_venta, id_venta) {
+  var url = "res_producto_entradas.php";
+
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "html",
+    data: { id_detalle_venta: id_detalle_venta },
+    success: function (response) {
+      var array = eval(response);
+      var id_producto = array[1];
+      var id_lote = array[2];
+      var valor_res_entradas = array[3];
+      // alert(id_producto+' '+id_lote+' '+valor_res_entradas);
+      eliminar(
+        id_detalle_venta,
+        id_venta,
+        id_producto,
+        id_lote,
+        valor_res_entradas
+      );
+    },
+    error: function (error) {
+      Swal.fire("Error", error, "error");
+    },
+  });
+}
+
 function cambiar_estado(id_detalle_venta, estado_pago, id_venta) {
   Swal.fire({
     title: "Cambiar estado",

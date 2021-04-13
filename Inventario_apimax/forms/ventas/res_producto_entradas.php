@@ -2,11 +2,10 @@
 include "../../conexion/conexion.php";
 
 try {
-	$id_venta = $_POST["id_venta"];
+	$id_detalle_venta = $_POST["id_detalle_venta"];
 
-	$consulta = $conexion->prepare("SELECT SUM(dinero_descontado), SUM(total), estado_pago
-    FROM detalle_ventas
-    WHERE id_venta = '$id_venta'");
+
+	$consulta = $conexion->prepare("SELECT id_detalle_venta, id_producto, id_lote, cantidad FROM detalle_ventas WHERE id_detalle_venta = $id_detalle_venta");
 
 	$consulta->execute();
 	$row = $consulta->fetch(PDO::FETCH_NUM);

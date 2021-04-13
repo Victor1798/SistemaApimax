@@ -1,14 +1,24 @@
 <?php
 include '../../conexion/conexion.php';
 include '../../seguridad/verificar_sesion_inicio.php';
+
+$productos = $conexion->prepare("SELECT id_producto, producto, precio FROM productos WHERE activo = 1");
+$productos->execute();
+
+$lotes = $conexion->prepare("SELECT id_lote FROM lotes WHERE activo = 1");
+$lotes->execute();
+
 ?>
 <!DOCTYPE html>
 <html>
+
 <!-- Head -->
 <?php include '../../head.php'; ?>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
   <div class="wrapper">
+
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-yellow navbar-light ">
       <!-- Left navbar links -->
@@ -17,7 +27,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index.php" class="nav-link">Inicio</a>
+          <a href="../principal/index.php" class="nav-link">Inicio</a>
         </li>
       </ul>
       <!-- Right navbar links -->
@@ -30,13 +40,15 @@ include '../../seguridad/verificar_sesion_inicio.php';
       </ul>
     </nav>
     <!-- /.navbar -->
+
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-warning elevation-4">
       <!-- Brand Logo -->
       <a href="#" class="brand-link">
         <img src="../../dist/img/logo_apimax.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"> APIMAX</span>
+        <span class="brand-text font-weight-light"><b> APIMAX</b></span>
       </a>
+
       <!-- Sidebar -->
       <div class="sidebar ">
         <!-- Sidebar user panel (optional) -->
@@ -45,17 +57,20 @@ include '../../seguridad/verificar_sesion_inicio.php';
             <img src="../../dist/img/usuario.png" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
+            <!-- <a href="#" class="d-block">Nombre usuario</a> -->
             <a href="#" class="d-block"><?php echo $_SESSION["apimax_nombre_persona"]; ?></a>
             <span id="tipo_user" class="d-block text-warning"><?php echo $_SESSION["apimax_tipo_usuario"]; ?></span>
+
           </div>
         </div>
+
         <!-- Sidebar Menu -->
         <nav class="mt-2 sidebar-dark">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="index.php" class="nav-link active">
+              <a href="../principal/index.php" class="nav-link">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Menu Principal</p>
               </a>
@@ -106,7 +121,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
               </ul>
-            <li class="nav-item has-treeview menu-close">
+            <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cash-register"></i>
                 <p>
@@ -134,7 +149,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../seguimiento_ventas/index.php" class="nav-link">
+                  <a href="../seguimiento_ventas/index.php" class="nav-link active">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Seguimiento de ventas</p>
                   </a>
@@ -180,6 +195,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
       </div>
       <!-- /.sidebar -->
     </aside>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -187,12 +203,12 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Menú principal</h1>
+              <h1 class="m-0 text-dark">Seguimiento de ventas</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Menú Principal</a></li>
-                <!-- <li class="breadcrumb-item active"></li> -->
+                <li class="breadcrumb-item"><a href="#">Ventas</a></li>
+                <li class="breadcrumb-item active">Seguimiento de ventas</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -202,207 +218,120 @@ include '../../seguridad/verificar_sesion_inicio.php';
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
-          <!-- Small boxes (Stat box) -->
-          <div id="botones_ventas" class="row">
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Entradas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../entradas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+          <!-- Tabla----------------------------------------------------------------------------------------------------------------------------------------- -->
+          <div class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header ">
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla seguimiento de ventas</h4>
               </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Ventas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../ventas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Salidas forzosas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../salidas_forzosas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-info">
-                <div class="inner">
-                  <h4>Seguimiento de ventas</h4>
-                  <p>Ventas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
-                </div>
-                <a href="../seguimiento_ventas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- Modulos para los usuarios basicos -->
-          <div id="botones_modulos" class="row" hidden>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Tipo de miel</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../tipos_miel/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Tamaño de frascos</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../tamanos_frascos/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Productos</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../productos/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Apiarios</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../apiarios/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Ubicaciones</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../ubicaciones/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-success">
-                <div class="inner">
-                  <h4>Lotes</h4>
-                  <p>Modulos</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-compose"></i>
-                </div>
-                <a href="../lotes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table id="tabla_ventas" class="table table-bordered table-striped">
+                        <thead class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Cliente</th>
+                            <th class="bg-gradient-warning">Fecha</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center" id="cuerpo_tabla">
 
-            <!-- ./col -->
+                        </tbody>
+                        <tfoot class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Cliente</th>
+                            <th class="bg-gradient-warning">Fecha</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
+                            <th class="bg-gradient-warning">Estado</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div id="botones_usuarios" class="row" hidden>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h4>Personas</h4>
-                  <p>Personas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="../personas/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h4>Usuarios</h4>
-                  <p>Personas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="../usuarios/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                <div class="inner">
-                  <h4>Clientes</h4>
-                  <p>Personas</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
-                </div>
-                <a href="../clientes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <div class="col-lg-3 col-6">
-              <!-- small box -->
-              <div class="small-box bg-primary">
-                <div class="inner">
-                  <h4>Reportes</h4>
-                  <p>Apimax</p>
-                </div>
-                <div class="icon">
-                  <i class="fas fa-chart-bar"></i>
-                </div>
-                <a href="../reportes/index.php" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-              </div>
-            </div>
-            <!-- ./col -->
-          </div>
-          <!-- /.row -->
         </div><!-- /.container-fluid -->
       </section>
-      <!-- /.content -->
     </div>
+
+    <!-- modal -->
+
+    <div class="modal fade modal_detalles" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="info_table" class="col-md-12">
+            <div class="card card-warning">
+              <div class="card-header ">
+                <h4 class="card-title"><i class="fas fa-stream"></i> Tabla detalle de ventas</h4>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="table-responsive">
+                      <table id="tabla_detalle_ventas" class="table table-bordered table-striped">
+                        <thead class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Tipo de venta</th>
+                            <th class="bg-gradient-warning">Fecha de pago</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento ($)</th>
+                            <th class="bg-gradient-warning">Descuento (%)</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
+                            <th class="bg-gradient-warning">Estado de pago</th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-center" id="cuerpo_tabla">
+
+                        </tbody>
+                        <tfoot class="text-center">
+                          <tr>
+                            <th class="bg-gradient-warning">#</th>
+                            <th class="bg-gradient-warning">Producto</th>
+                            <th class="bg-gradient-warning">Lote</th>
+                            <th class="bg-gradient-warning">Tipo de venta</th>
+                            <th class="bg-gradient-warning">Fecha de pago</th>
+                            <th class="bg-gradient-warning">Cantidad</th>
+                            <th class="bg-gradient-warning">Descuento ($)</th>
+                            <th class="bg-gradient-warning">Descuento (%)</th>
+                            <th class="bg-gradient-warning">Precio</th>
+                            <th class="bg-gradient-warning">Total</th>
+                            <th class="bg-gradient-warning">Dinero descontado</th>
+                            <th class="bg-gradient-warning">Estado de pago</th>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- fin modal -->
+    <!-- /.content -->
     <!-- /.content-wrapper -->
     <footer class="main-footer">
       <div class="float-right d-none d-sm-inline-block">
@@ -413,7 +342,6 @@ include '../../seguridad/verificar_sesion_inicio.php';
   </div>
   <!-- ./wrapper -->
   <?php include '../../scripts.php'; ?>
-
   <script type="text/javascript" src="funciones.js"></script>
   <script type="text/javascript">
     $(document).ready(function(e) {
@@ -423,21 +351,21 @@ include '../../seguridad/verificar_sesion_inicio.php';
         $("#modulo_modulos").removeAttr("hidden");
         $("#modulo_usuarios").removeAttr("hidden");
         $("#modulo_reportes").removeAttr("hidden");
-        $("#botones_modulos").removeAttr("hidden");
-        $("#botones_usuarios").removeAttr("hidden");
 
       } else {
         $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
         $("#modulo_reportes").attr("type", "hidden");
-        $("#botones_modulos").attr("type", "hidden");
-        $("#botones_usuarios").attr("type", "hidden");
-
 
       }
+
+      $('#tabla_ventas').DataTable();
+      $('#tabla_detalle_ventas').DataTable();
+
+      cargar_tabla();
+
     });
   </script>
 
-</body>
 
 </html>

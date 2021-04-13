@@ -86,7 +86,7 @@ $clientes->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../tipos_miel/index.php" class="nav-link ">
+                  <a href="../tipos_miel/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Tipos de miel</p>
                   </a>
@@ -122,7 +122,7 @@ $clientes->execute();
                   </a>
                 </li>
               </ul>
-            <li class="nav-item has-treeview menu-close menu-open">
+            <li class="nav-item has-treeview menu-open">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-cash-register"></i>
                 <p>
@@ -132,7 +132,7 @@ $clientes->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../entradas/index.php" class="nav-link ">
+                  <a href="../entradas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Entradas</p>
                   </a>
@@ -144,9 +144,15 @@ $clientes->execute();
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="../salidas_forzosas/index.php" class="nav-link ">
+                  <a href="../salidas_forzosas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Salidas forzosas</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../seguimiento_ventas/index.php" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Seguimiento de ventas</p>
                   </a>
                 </li>
               </ul>
@@ -160,7 +166,7 @@ $clientes->execute();
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="../personas/index.php" class="nav-link ">
+                  <a href="../personas/index.php" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Personas</p>
                   </a>
@@ -178,6 +184,12 @@ $clientes->execute();
                   </a>
                 </li>
               </ul>
+              <li id="modulo_reportes" class="nav-item" hidden>
+              <a href="../reportes/index.php" class="nav-link">
+                <i class="nav-icon fas fa-chart-bar"></i>
+                <p>Reportes</p>
+              </a>
+            </li>
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -334,6 +346,7 @@ $clientes->execute();
                             <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
                           </div>
                           <input type="number" class="form-control" id="total" name="total" placeholder="..." step="any" required readonly>
+                          <input type="text" class="form-control" id="valor_res_entradas" name="valor_res_entradas" placeholder="..." step="any" required readonly hidden>
                         </div>
                       </div>
                     </div>
@@ -409,11 +422,9 @@ $clientes->execute();
             <div class="card card-warning">
               <div id="formFinVenta" class="card-body">
                 <form action="#" method="POST" id="frmFinVenta" data-action="agregar">
-                <input type="number" class="form-control" id="id_venta_oculto" name="id_venta_oculto" step="any" hidden>
                   <div class="card-body">
                     <div class="row">
                       <div class="form-group col-sm-12 col-md-12">
-                      <!-- <input type="number" class="form-control" id="total_tabla_descuento" name="total_tabla_descuento" step="any"> -->
 
                       </div>
                     </div>
@@ -451,9 +462,13 @@ $clientes->execute();
       if (tipo_user == 'Administrador') {
         $("#modulo_modulos").removeAttr("hidden");
         $("#modulo_usuarios").removeAttr("hidden");
+        $("#modulo_reportes").removeAttr("hidden");
+
       } else {
         $("#modulo_modulos").attr("type", "hidden");
         $("#modulo_usuarios").attr("type", "hidden");
+        $("#modulo_reportes").attr("type", "hidden");
+
       }
 
       $('#tabla_detalle_ventas').DataTable()
