@@ -2,14 +2,9 @@
 include "../../conexion/conexion.php";
 
 try {
-	$fecha_inicio = $_POST["fecha_inicio"];
-	$fecha_fin = $_POST["fecha_fin"];
+	$id_venta = $_POST["id_venta"];
 
-
-	$consulta = $conexion->prepare("SELECT SUM(cantidad)
-	FROM entradas
-	WHERE fecha_entrada
-	BETWEEN '$fecha_inicio' AND '$fecha_fin'");
+	$consulta = $conexion->prepare("SELECT COUNT(estado_pago) FROM detalle_ventas WHERE id_venta = '$id_venta' AND estado_pago = '2'");
 
 	$consulta->execute();
 	$row = $consulta->fetch(PDO::FETCH_NUM);

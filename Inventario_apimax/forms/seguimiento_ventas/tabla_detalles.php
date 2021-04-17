@@ -19,9 +19,9 @@ try {
 	while ($row_ventas = $consulta->fetch(PDO::FETCH_NUM)) {
 
 		if ($row_ventas[5] == "1") {
-			$estado_pago = "<a href='#'  title='Estado' onclick='cambiar_estado($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-success' title='Estado'>Pagado</a>";
+			$estado_pago = "<a href='#' title='Estado' onclick='cambiar_estado_modal($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-success' title='Estado'>Pagado</a>";
 		} else {
-			$estado_pago = "<a href='#' title='Estado' onclick='cambiar_estado($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-warning' title='Estado'>No pagado</a>";
+			$estado_pago = "<a href='#' title='Estado' onclick='cambiar_estado_modal($row_ventas[0], $row_ventas[5], $row_ventas[1]);' class='btn btn-warning' title='Estado'>Pendiente</a>";
 		}
 
 		$eliminar = "<a href='#' class='btn btn-danger' title='Eliminar' onclick='eliminar($row_ventas[0], $row_ventas[1]);'><i class='fas fa-trash-alt fa-xs'></i></a>";

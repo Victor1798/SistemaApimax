@@ -215,7 +215,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
         <div class="container-fluid">
           <!-- div de columnas -->
           <div class="col-sm-12 col-md-12 col-lg-12">
-          <div id="info_combo" class="col-md-12">
+          <!-- <div id="info_combo" class="col-md-12">
             <div class="card card-warning">
               <div class="card-header">
                 <h2 class="card-title" id="titulo_combo"><i class="fas fa-sort"></i> Mostrar Reportes</h2>
@@ -233,7 +233,7 @@ include '../../seguridad/verificar_sesion_inicio.php';
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
             <!-- general form elements -->
             <div class="card card-warning">
               <div class="card-header">

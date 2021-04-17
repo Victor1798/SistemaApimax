@@ -162,7 +162,7 @@ function cargar_detalles(id_venta) {
   cargar_tabla_detalles(id_venta);
 }
 
-function cambiar_estado(id_detalle_venta, estado_pago, id_venta) {
+function cambiar_estado_modal(id_detalle_venta, estado_pago, id_venta) {
   Swal.fire({
     title: "Cambiar estado",
     text: "¿El producto ha sido pagado?",
@@ -182,8 +182,8 @@ function cambiar_estado(id_detalle_venta, estado_pago, id_venta) {
         dataType: "html",
         data: { id_detalle_venta: id_detalle_venta, estado_pago: estado_pago },
         success: function (response) {
-          cargar_tabla_detalles(id_venta);
-          cargar_tabla(id_venta);
+        calcular_estado(id_venta)
+        cargar_tabla_detalles(id_venta);
 
           Swal.fire("Hecho", response, "success");
         },
@@ -195,3 +195,38 @@ function cambiar_estado(id_detalle_venta, estado_pago, id_venta) {
   });
 }
 
+function calcular_estado(id_venta)  {
+  var url = "consulta_estado_venta.php";
+
+  $.ajax({
+    url: url,
+    type: "POST",
+    dataType: "html",
+    data: {
+      id_venta: id_venta,
+    },
+    success: function (response) {
+      var array = eval(response);
+      // alert(array[0]);
+      cambiar_estado_general(id_venta, array[0]);
+    },
+    error: function (error) {
+      Swal.fire("Error", error, "error");
+    },
+  });
+}
+
+function cambiar_estado_general(id_venta, estado_pago) {
+  var url1 = "actualizar_estado.php";
+
+  $.ajax({
+    url: url1,
+    type: "POST",
+    dataType: "html",
+    data: { id_venta: id_venta, estado_pago: estado_pago},
+    success: function (response) {
+      cargar_tabla(id_venta);
+
+    },
+  });
+}
