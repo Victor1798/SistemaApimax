@@ -7,8 +7,8 @@ try {
 
 
 	$consulta = $conexion->prepare("SELECT SUM(cantidad)
-	FROM detalle_ventas
-	WHERE fecha_registro
+	FROM entradas  
+	WHERE fecha_entrada
 	BETWEEN '$fecha_inicio' AND '$fecha_fin'");
 
 	$consulta->execute();

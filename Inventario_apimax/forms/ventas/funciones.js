@@ -386,12 +386,13 @@ $("#btnFinVenta").click(function () {
     data: { id_venta: id_venta },
     success: function (response) {
       var array = eval(response);
-      calcular_total_descuentos(id_venta, array[0], array[1]);
+      calcular_total_descuentos(id_venta, array[0], array[1], array[2]);
+
     },
   });
 });
 
-function calcular_total_descuentos(id_venta, total_tabla_descuento, total) {
+function calcular_total_descuentos(id_venta, total_tabla_descuento, total, estado_pago) {
   var url = "cerrar_venta.php";
 
   $.ajax({
@@ -402,6 +403,7 @@ function calcular_total_descuentos(id_venta, total_tabla_descuento, total) {
       id_venta: id_venta,
       total_tabla_descuento: total_tabla_descuento,
       total: total,
+      estado_pago:estado_pago,
     },
     success: function (response) {
       Swal.fire("Éxito", "Venta finalizada", "success");

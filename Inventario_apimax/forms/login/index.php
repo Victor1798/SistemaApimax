@@ -62,7 +62,7 @@ include "../../conexion/conexion.php";
         <p class="login-box-msg" style="font-size: 22px;">Inicio de sesión</p>
         <form action="POST" id="form_credenciales">
           <div class="input-group mb-3">
-            <input value="vic17" type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" placeholder="Usuario" required>
+            <input value="" type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" placeholder="Usuario" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>

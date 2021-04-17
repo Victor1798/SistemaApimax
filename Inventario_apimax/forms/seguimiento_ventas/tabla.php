@@ -11,10 +11,13 @@ try {
 	$consulta->execute();
 
 	while ($row_ventas = $consulta->fetch(PDO::FETCH_NUM)) {
-		if ($row_ventas[2] == "Pagado") {
+		if ($row_ventas[2] == "0") {
 			$estado = "<a type='button' data-toggle='modal' data-target='.modal_detalles' href='#' onclick='cargar_detalles($row_ventas[0]);' class='btn btn-success' title='Estado'>Pagado</a>";
-		} else {
-			$estado = "<a type='button' data-toggle='modal' data-target='.modal_detalles' href='#' onclick='cargar_detalles($row_ventas[0]);' class='btn btn-warning' title='Estado'>Más detalles</a>";
+		}elseif ($row_ventas[2] == "") {
+			$estado = "<a type='button' data-toggle='modal' data-target='.modal_detalles' href='#' onclick='cargar_detalles($row_ventas[0]);' class='btn btn-secondary' title='Estado'>Incompleto</a>";
+		}
+		else {
+			$estado = "<a type='button' data-toggle='modal' data-target='.modal_detalles' href='#' onclick='cargar_detalles($row_ventas[0]);' class='btn btn-warning' title='Estado'>Pendiente</a>";
 		}
 		$renglon = "{
 			\"id_venta\":\"$row_ventas[0]\",

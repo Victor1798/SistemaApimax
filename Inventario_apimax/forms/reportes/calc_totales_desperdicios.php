@@ -6,9 +6,9 @@ try {
 	$fecha_fin = $_POST["fecha_fin"];
 
 
-	$consulta = $conexion->prepare("SELECT SUM(cantidad)
-	FROM detalle_ventas
-	WHERE fecha_registro
+	$consulta = $conexion->prepare("SELECT SUM(cantidad_desperdiciada) 
+	FROM salidas_forzosas 
+	WHERE fecha
 	BETWEEN '$fecha_inicio' AND '$fecha_fin'");
 
 	$consulta->execute();

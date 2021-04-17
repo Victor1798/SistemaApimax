@@ -7,9 +7,11 @@ try {
     $estado_pago = $_POST["estado_pago"];
 
     $nuevo_activo = ($estado_pago == 1 ? 2 : 1);
+	$fecha_registro = date("y.m.d");
 
 
-	$consulta = $conexion->prepare("UPDATE detalle_ventas SET estado_pago = $nuevo_activo WHERE id_detalle_venta = $id_detalle_venta");
+
+	$consulta = $conexion->prepare("UPDATE detalle_ventas SET estado_pago = '$nuevo_activo', fecha_pago = '$fecha_registro' WHERE id_detalle_venta = '$id_detalle_venta'");
 	$consulta->execute();
 
 	echo "Actualizado correctamente";

@@ -273,7 +273,7 @@ $clientes->execute();
                 <form action="#" method="POST" id="frmDetalleVentas" data-action="agregar">
                   <input type="hidden" name="id_detalle_venta" id="id_detalle_venta">
                   <div class="card-body">
-                    <div class="row">
+                    <div class="row" hidden>
                       <div class="form-group col-sm-12 col-md-12">
                         <label for="id_venta">Venta para:</label>
                         <select name="id_venta" id="id_venta" class="form-control">

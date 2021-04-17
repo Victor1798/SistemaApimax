@@ -6,9 +6,9 @@ try {
 	$fecha_fin = $_POST["fecha_fin"];
 
 
-	$consulta = $conexion->prepare("SELECT SUM(cantidad)
+	$consulta = $conexion->prepare("SELECT SUM(total)
 	FROM detalle_ventas
-	WHERE fecha_registro
+	WHERE fecha_pago
 	BETWEEN '$fecha_inicio' AND '$fecha_fin'");
 
 	$consulta->execute();
