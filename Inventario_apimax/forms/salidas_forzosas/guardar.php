@@ -20,7 +20,7 @@ try {
 		$consulta = $conexion->prepare("INSERT INTO salidas_forzosas(id_producto, id_lote, cantidad_desperdiciada, descripcion, fecha, precio, total, fecha_registro, activo)
 		VALUES('$id_producto', '$id_lote', '$cantidad_desperdiciada','$descripcion', '$fecha','$precio','$total' , '$fecha_registro', '$activo')");
 
-		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_desperdiciada = '$cantidad_desperdiciada'
+		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_desperdiciada = '$cantidad_desperdiciada'+cantidad_desperdiciada
 		WHERE id_producto = '$id_producto' && id_lote = '$id_lote'");
 
 		$mensaje = "Registrado correctamente";
@@ -29,7 +29,7 @@ try {
 		$consulta = $conexion->prepare("UPDATE salidas_forzosas SET id_producto = '$id_producto', id_lote = '$id_lote', cantidad_desperdiciada = '$cantidad_desperdiciada',descripcion = '$descripcion',fecha = '$fecha', precio = '$precio', total = '$total', activo = '$activo'
 		WHERE id_desperdicio = '$id_desperdicio'");
 
-		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_desperdiciada = '$cantidad_desperdiciada'
+		$consulta2 = $conexion->prepare("UPDATE entradas SET cantidad_desperdiciada = '$cantidad_desperdiciada'+cantidad_desperdiciada
 		WHERE id_producto = '$id_producto' && id_lote = '$id_lote'");
 
 		$mensaje = "Actualizado correctamente";
