@@ -1,45 +1,41 @@
 <?php
-
-include "../../conexion/conexion.php";
+declare(strict_types=1);
+require_once '../../conexion/conexion.php';
+header('Content-Type: application/json; charset=utf-8');
 
 try {
+    $consulta = $conexion->query("SELECT s.id_desperdicio, p.producto, s.id_lote,
+        s.cantidad_desperdiciada, s.descripcion, s.fecha, s.precio, s.total,
+        s.activo, s.id_producto
+        FROM salidas_forzosas s
+        INNER JOIN productos p ON s.id_producto = p.id_producto
+        ORDER BY s.id_desperdicio");
 
-	$consulta = $conexion->prepare("SELECT s.id_desperdicio, p.producto, s.id_lote, s.cantidad_desperdiciada,s.descripcion,s.fecha, s.precio,s.total, s.activo, s.id_producto
-    FROM salidas_forzosas s
-    INNER JOIN productos p ON s.id_producto = p.id_producto
-    ORDER BY s.id_desperdicio");
-	$consulta->execute();
+    $datos = [];
+    while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
+        $id = (int) $row['id_desperdicio'];
+        $activo = (int) $row['activo'];
+        $estado = $activo === 1 ? 'Activo' : 'Inactivo';
+        $clase = $activo === 1 ? 'success' : 'secondary';
 
-	while ($row_salidas = $consulta->fetch(PDO::FETCH_NUM)) {
-		if ($row_salidas[8] == 1) {
-			$estado = "<a href='estado.php?id_desperdicio=$row_salidas[0]&estado=$row_salidas[8]' class='btn btn-success' title='Estado'>Activo</a>";
-		} else {
-			$estado = "<a href='estado.php?id_desperdicio=$row_salidas[0]&estado=$row_salidas[8]' class='btn btn-secondary' title='Estado'>Inactivo</a>";
-		}
+        $datos[] = [
+            'id_desperdicio' => (string) $id,
+            'id_producto' => htmlspecialchars((string) $row['producto'], ENT_QUOTES, 'UTF-8'),
+            'id_lote' => (string) $row['id_lote'],
+            'cantidad_desperdiciada' => (string) $row['cantidad_desperdiciada'],
+            'descripcion' => htmlspecialchars((string) ($row['descripcion'] ?? ''), ENT_QUOTES, 'UTF-8'),
+            'fecha' => (string) $row['fecha'],
+            'precio' => (string) $row['precio'],
+            'total' => (string) $row['total'],
+            'estado' => "<a href='estado.php?id_desperdicio={$id}&estado={$activo}' class='btn btn-{$clase}' title='Estado'>{$estado}</a>",
+            'editar' => "<a href='#' class='btn btn-info' title='Editar' onclick='editar({$id}); return false;'><i class='fas fa-pencil-alt'></i></a>",
+        ];
+    }
 
-		$editar = "<a href='#' class='btn btn-info' title='Editar' onclick='editar($row_salidas[0]);'><i class='fas fa-pencil-alt'></i></a>";
-
-		$renglon = "{
-			\"id_desperdicio\":\"$row_salidas[0]\",
-			\"id_producto\":\"$row_salidas[1]\",
-			\"id_lote\":\"$row_salidas[2]\",
-			\"cantidad_desperdiciada\":\"$row_salidas[3]\",
-			\"descripcion\":\"$row_salidas[4]\",
-			\"fecha\":\"$row_salidas[5]\",
-			\"precio\":\"$row_salidas[6]\",
-			\"total\":\"$row_salidas[7]\",
-			\"estado\":\"$estado\",
-			\"editar\":\"$editar\"
-		},";
-
-		$cuerpo = $cuerpo . $renglon;
-	}
-
-	$cuerpo = trim($cuerpo, ",");
-	$tabla = "[" . $cuerpo . "]";
-
-	echo $tabla;
-} catch (PDOException $error) {
-
-	echo $error->getMessage();
+    echo json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+} catch (Throwable $error) {
+    error_log('APIMAX salidas tabla: ' . $error->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'No fue posible cargar las salidas.']);
 }
+

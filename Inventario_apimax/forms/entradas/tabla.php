@@ -1,53 +1,42 @@
 <?php
-
-include "../../conexion/conexion.php";
+declare(strict_types=1);
+require_once '../../conexion/conexion.php';
+header('Content-Type: application/json; charset=utf-8');
 
 try {
+    $consulta = $conexion->query("SELECT e.id_entrada, p.producto, e.id_lote, e.cantidad, e.precio,
+        e.cantidad_disponible, e.cantidad_vendida, e.cantidad_desperdiciada, e.fecha_entrada,
+        e.activo, e.id_producto
+        FROM entradas e
+        INNER JOIN productos p ON e.id_producto = p.id_producto
+        ORDER BY e.id_entrada");
 
-	$consulta = $conexion->prepare("SELECT e.id_entrada, p.producto, e.id_lote, e.cantidad, e.precio, e.cantidad_disponible, e.cantidad_vendida, e.cantidad_desperdiciada, e.fecha_entrada, e.activo, e.id_producto
-    FROM entradas e
-    INNER JOIN productos p ON e.id_producto = p.id_producto
-    ORDER BY e.id_entrada");
-	$consulta->execute();
+    $datos = [];
+    while ($row = $consulta->fetch(PDO::FETCH_ASSOC)) {
+        $id = (int) $row['id_entrada'];
+        $activo = (int) $row['activo'];
+        $estado = $activo === 1 ? 'Activo' : 'Inactivo';
+        $clase = $activo === 1 ? 'success' : 'secondary';
 
-	while ($row_entradas = $consulta->fetch(PDO::FETCH_NUM))
+        $datos[] = [
+            'id_entrada' => (string) $id,
+            'id_producto' => htmlspecialchars((string) $row['producto'], ENT_QUOTES, 'UTF-8'),
+            'id_lote' => (string) $row['id_lote'],
+            'cantidad' => (string) $row['cantidad'],
+            'precio' => (string) $row['precio'],
+            'cantidad_disponible' => (string) $row['cantidad_disponible'],
+            'cantidad_vendida' => (string) $row['cantidad_vendida'],
+            'cantidad_desperdiciada' => (string) $row['cantidad_desperdiciada'],
+            'fecha_entrada' => (string) $row['fecha_entrada'],
+            'estado' => "<a href='estado.php?id_entrada={$id}&estado={$activo}' class='btn btn-{$clase}' title='Estado'>{$estado}</a>",
+            'editar' => "<a href='#' class='btn btn-info' title='Editar' onclick='editar({$id}); return false;'><i class='fas fa-pencil-alt'></i></a>",
+        ];
+    }
 
-	{
-		$res1 = $row_entradas[6]+$row_entradas[7];
-		$resultado = $row_entradas[3] - $res1;
-
-		if ($row_entradas[9] == 1) {
-			$estado = "<a href='estado.php?id_entrada=$row_entradas[0]&estado=$row_entradas[9]' class='btn btn-success' title='Estado'>Activo</a>";
-		}
-		else {
-			$estado = "<a href='estado.php?id_entrada=$row_entradas[0]&estado=$row_entradas[9]' class='btn btn-secondary' title='Estado'>Inactivo</a>";
-		}
-
-		$editar = "<a href='#' class='btn btn-info' title='Editar' onclick='editar($row_entradas[0]);'><i class='fas fa-pencil-alt'></i></a>";
-
-		$renglon = "{
-			\"id_entrada\":\"$row_entradas[0]\",
-			\"id_producto\":\"$row_entradas[1]\",
-			\"id_lote\":\"$row_entradas[2]\",
-			\"cantidad\":\"$row_entradas[3]\",
-			\"precio\":\"$row_entradas[4]\",
-			\"cantidad_disponible\":\"$resultado\",
-            \"cantidad_vendida\":\"$row_entradas[6]\",
-			\"cantidad_desperdiciada\":\"$row_entradas[7]\",
-			\"fecha_entrada\":\"$row_entradas[8]\",
-			\"estado\":\"$estado\",
-			\"editar\":\"$editar\"
-		},";
-
-		$cuerpo = $cuerpo.$renglon;
-	}
-
-	$cuerpo = trim($cuerpo, ",");
-	$tabla = "[".$cuerpo."]";
-
-	echo $tabla;
-
-} catch (PDOException $error) {
-
-	echo $error->getMessage();
+    echo json_encode($datos, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+} catch (Throwable $error) {
+    error_log('APIMAX entradas tabla: ' . $error->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'No fue posible cargar las entradas.']);
 }
+
