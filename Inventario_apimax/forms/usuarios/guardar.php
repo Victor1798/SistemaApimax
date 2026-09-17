@@ -1,26 +1,28 @@
 <?php
-include '../../conexion/conexion.php';
+declare(strict_types=1);
+require_once '../../conexion/conexion.php';
+require_once '../../seguridad/funciones.php';
+exigir_sesion('../../index.php');
 
 $id_persona = $_POST['id_persona'];
 $usuario = $_POST['usuario'];
-$pass = $_POST['pass'];
+$pass = (string) ($_POST['pass'] ?? '');
 $tipo_user = $_POST['tipo_user'];
 
-$fecha_registro = date("y.m.d");
+$fecha_registro = date('Y-m-d');
 
 $activo = 1;
 
 try
 {
-    $qry_insert = $conexion->prepare("INSERT INTO usuarios(id_persona, usuario, pass, tipo_usuario, fecha_registro, activo)
-    VALUES('$id_persona', '$usuario', '$pass', '$tipo_user', '$fecha_registro', '$activo')");
-
-    $qry_insert->execute();
-    echo "Nuevo usuario: $nombre fue insertado correctamente";
+    if ($pass === '' || strlen($pass) < 8) throw new InvalidArgumentException('La contraseña debe tener al menos 8 caracteres.');
+    $qry_insert = $conexion->prepare('INSERT INTO usuarios(id_persona, usuario, pass, tipo_usuario, fecha_registro, activo) VALUES(:persona, :usuario, :pass, :tipo, :fecha, :activo)');
+    $qry_insert->execute(['persona' => $id_persona, 'usuario' => $usuario, 'pass' => password_hash($pass, PASSWORD_DEFAULT), 'tipo' => $tipo_user, 'fecha' => $fecha_registro, 'activo' => $activo]);
+    echo "Nuevo usuario: {$usuario} fue insertado correctamente";
 }
-catch(PDOException $error)
+catch(Throwable $error)
 {
-    echo "Ha ocurrido el siguiente error: ".$error->getMessage();
+    respuesta_error($error);
 }
 
 

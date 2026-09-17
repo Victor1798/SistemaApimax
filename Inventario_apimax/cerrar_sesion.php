@@ -1,7 +1,11 @@
 <?php
-session_name("apimax");
-session_start();
-
-	$_SESSION["apimax_autenticado"] = "NO";
-	 echo"<script language=\"javascript\">window.location=\"forms/login/index.php\"</script>";
- ?>
+require_once __DIR__ . '/seguridad/funciones.php';
+iniciar_sesion_apimax();
+$_SESSION = [];
+if (ini_get('session.use_cookies')) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+}
+session_destroy();
+header('Location: forms/login/index.php', true, 302);
+exit;

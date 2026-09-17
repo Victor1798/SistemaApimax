@@ -85,8 +85,6 @@ function editar(id_usuario)
     var id_persona = $("#id_persona_" + id_usuario).val();
     var tipo_user = $(fila).find(".tipo_user").html();
     var usuario = $(fila).find(".usuario").html();
-    var pass = $(fila).find(".pass").html();
-    var re_pass = $(fila).find(".re_pass").html();
 
     var num_personas = document.getElementById("id_persona").length;
     for (let i = 1; i <= num_personas; i++) {
@@ -97,8 +95,8 @@ function editar(id_usuario)
 
 
     $("#usuario").val(usuario);
-    $("#pass").val(pass);
-    $("#re_pass").val(re_pass);
+    $("#pass").val("");
+    $("#re_pass").val("");
     $("#usuario").focus();
 
     $("#id_usuario").val(id_usuario);
@@ -112,5 +110,4 @@ function cancelar()
     $("#frmUsuarios").attr("data-action","agregar");
     $().val("");
 }
-
 

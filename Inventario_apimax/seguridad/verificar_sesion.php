@@ -1,12 +1,3 @@
 <?php
-session_name("apimax");
-session_start();
-
-$verificacion = $_SESSION["apimax_autenticado"];
-
-
-if ($verificacion != "SI")
-{
-    echo"<script language=\"javascript\">window.location=\"../forms/login/index.php\"</script>";
-}
-?>
+require_once __DIR__ . '/funciones.php';
+exigir_sesion('../forms/login/index.php');

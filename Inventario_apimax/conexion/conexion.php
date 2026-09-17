@@ -1,29 +1,23 @@
 <?php
-//La de arriba es la eiqueta de apertura y la de abajo la etiqueta de cierre
-//PHP.NET BUSCAR MAS CODIGO,ETC
-$servidor = "localhost";
-$usuario = "root";
-$password = "123456789";
-$base_datos = "apimax";
-$cadena_conexion = 'mysql:dbname='.$base_datos.';host='.$servidor.'';
+declare(strict_types=1);
 
-    try
-    {
-        $conexion = new PDO($cadena_conexion,$usuario,$password);
-        //PDO = PHP DATA OBJECT
-        $conexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-        //ATTR_ERRMODE = Si tiene errores lo reporta
-        //ERRMODE_EXCEPTION = Sirve para generar la excepcion si existe
-        date_default_timezone_set("America/Monterrey");
-        //Especifico la zona horaria de mi servidor web
-        $conexion->query("SET NAMES utf8");
-        //Consulta para especificar el tipo de caracter de los resultados de las consultas
+$servidor = getenv('APIMAX_DB_HOST') ?: '127.0.0.1';
+$puerto = getenv('APIMAX_DB_PORT') ?: '3306';
+$usuario = getenv('APIMAX_DB_USER') ?: 'root';
+$password = getenv('APIMAX_DB_PASSWORD') ?: '';
+$base_datos = getenv('APIMAX_DB_NAME') ?: 'apimax';
+$dsn = "mysql:host={$servidor};port={$puerto};dbname={$base_datos};charset=utf8mb4";
 
-    }
+date_default_timezone_set(getenv('APIMAX_TIMEZONE') ?: 'America/Mexico_City');
 
-    catch(PDOException $error)
-    {
-        //para concatenar se usa un punto (.)
-        echo "Fallo en la conexion: ".$error->getMessage();
-    }
-?>
+try {
+    $conexion = new PDO($dsn, $usuario, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+} catch (PDOException $error) {
+    error_log('APIMAX database connection failed: ' . $error->getMessage());
+    http_response_code(500);
+    exit('No fue posible conectar con la base de datos.');
+}

@@ -111,7 +111,8 @@ include "../../conexion/conexion.php";
   <script src="../../plugins/sweetalert2/sweetalert2.min.js"></script>
   <script>
     $(function() {
-      $("#verificar").click(function() {
+      $("#form_credenciales").on("submit", function(e) {
+        e.preventDefault();
         var url = "../../validar_usuario.php";
         $.ajax({
           type: "POST",
@@ -123,11 +124,15 @@ include "../../conexion/conexion.php";
             } else if (respuesta == "2") {
               window.location = "../principal/index.php";
               $(":text").val('');
+            } else {
+              swal.fire("Error", "No fue posible iniciar sesión. Inténtalo nuevamente.", "error");
             }
             $(":password").val('');
+          },
+          error: function() {
+            swal.fire("Error", "No fue posible conectar con el servidor.", "error");
           }
         });
-        return false;
       });
     });
   </script>
