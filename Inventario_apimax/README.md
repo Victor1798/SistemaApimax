@@ -29,6 +29,8 @@ En el panel **Ports** de Codespaces, abre el puerto `8000`. phpMyAdmin usa el us
 
 La base de datos se inicializa solo la primera vez que se crea el volumen. Para reiniciarla desde la terminal usa `docker compose down -v` y luego `docker compose up --build`.
 
+El archivo `database/demo_data.sql` agrega información de demostración: tipos de miel, tamaños, productos con códigos de barras, apiarios, ubicaciones, lotes, existencias, dos personas con usuarios (`admin_demo` y `empleado_demo`) y dos clientes. Cambia las contraseñas de demostración antes de usar el sistema fuera de Codespaces.
+
 ## Cambios de seguridad y consistencia
 
 - Conexión PDO con consultas preparadas reales, `utf8mb4` y errores internos fuera de la respuesta pública.

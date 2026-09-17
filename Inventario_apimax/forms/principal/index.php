@@ -436,6 +436,44 @@ include '../../seguridad/verificar_sesion_inicio.php';
 
       }
     });
+
+    $(function() {
+      const descripciones = {
+        '../entradas/index.php': 'Registra la miel que ingresa al inventario por producto y lote. Aquí se controla la cantidad disponible.',
+        '../ventas/index.php': 'Crea una venta, agrega sus productos, aplica descuentos y descuenta existencias del lote seleccionado.',
+        '../salidas_forzosas/index.php': 'Registra desperdicios, daños o salidas que no corresponden a una venta y actualiza el inventario.',
+        '../seguimiento_ventas/index.php': 'Consulta ventas, productos vendidos y estados de pago pendientes o liquidados.',
+        '../tipos_miel/index.php': 'Administra las variedades de miel que maneja la empresa.',
+        '../tamanos_frascos/index.php': 'Define las presentaciones disponibles, como 250 g, 500 g o 1 kg.',
+        '../productos/index.php': 'Combina tipo de miel y tamaño de frasco, define precio y genera el código de barras.',
+        '../apiarios/index.php': 'Registra los apiarios donde se produce la miel.',
+        '../ubicaciones/index.php': 'Administra almacenes, cámaras frías y otros lugares de resguardo.',
+        '../lotes/index.php': 'Relaciona una producción con su apiario y ubicación para facilitar la trazabilidad.',
+        '../personas/index.php': 'Registra los datos personales de usuarios, clientes y colaboradores.',
+        '../usuarios/index.php': 'Administra las cuentas de acceso y los perfiles del sistema.',
+        '../clientes/index.php': 'Registra las personas o negocios que compran productos de APIMAX.',
+        '../reportes/index.php': 'Consulta totales de inventario, ingresos, descuentos, productos y desperdicios.'
+      };
+
+      $('.small-box').each(function() {
+        const enlace = $(this).find('.small-box-footer').first().attr('href');
+        if (!enlace || !descripciones[enlace]) return;
+
+        const boton = $('<button type="button" class="btn btn-light btn-sm info-modulo" aria-label="Más información"><i class="fas fa-info-circle"></i></button>');
+        boton.css({ position: 'absolute', top: '8px', right: '8px', zIndex: 2 });
+        boton.on('click', function(event) {
+          event.preventDefault();
+          event.stopPropagation();
+          Swal.fire({
+            title: $(this).closest('.small-box').find('h4').first().text().trim(),
+            text: descripciones[enlace],
+            icon: 'info',
+            confirmButtonText: 'Entendido'
+          });
+        });
+        $(this).append(boton);
+      });
+    });
   </script>
 
 </body>

@@ -88,8 +88,8 @@ function editar(id_producto) {
 
 }
 
-function generar_codigo(id_producto) {
-  $("#bar_code_"+id_producto).JsBarcode(id_producto,{displayValue:true, fontSize:20});
+function generar_codigo(id_producto, codigo) {
+  $("#bar_code_"+id_producto).JsBarcode(codigo || id_producto,{displayValue:true, fontSize:20});
 
   // $.ajax({
   //   url: "generar_codigo.php",
