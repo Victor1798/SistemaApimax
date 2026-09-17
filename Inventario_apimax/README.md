@@ -14,7 +14,8 @@ Aplicación web PHP/MySQL para administrar productos de miel, lotes, entradas, v
 1. Copia `.env.example` a la configuración de variables de entorno de PHP/Apache y define credenciales reales de MySQL. No pongas contraseñas en el código.
 2. Configura `APIMAX_TIMEZONE` según la ubicación del negocio.
 3. Importa el esquema de la base de datos y verifica que las tablas de inventario tengan `cantidad`, `cantidad_vendida` y `cantidad_desperdiciada` con valor predeterminado `0`.
-4. Abre `/index.php` desde el servidor web.
+4. Importa `database/apimax.sql` en MySQL. El script crea las tablas, pero no publica credenciales; sigue `database/README.md` para crear el primer usuario.
+5. Abre `/index.php` desde el servidor web.
 
 ## Cambios de seguridad y consistencia
 
@@ -27,3 +28,7 @@ Aplicación web PHP/MySQL para administrar productos de miel, lotes, entradas, v
 ## Pendientes recomendados
 
 El código histórico aún contiene formularios secundarios con consultas interpoladas. Conviene migrarlos al mismo patrón parametrizado antes de publicar el sistema en Internet y añadir el esquema SQL, pruebas de integración y control de permisos por rol.
+
+## Base de datos reconstruida
+
+`database/apimax.sql` fue reconstruido a partir de las tablas y columnas utilizadas por el código PHP. No contiene los datos históricos originales; sirve para levantar un entorno nuevo de pruebas. El campo `entradas.cantidad_disponible` se calcula automáticamente a partir de cantidad, ventas y desperdicios.
