@@ -17,6 +17,18 @@ Aplicación web PHP/MySQL para administrar productos de miel, lotes, entradas, v
 4. Importa `database/apimax.sql` en MySQL. El script crea las tablas, pero no publica credenciales; sigue `database/README.md` para crear el primer usuario.
 5. Abre `/index.php` desde el servidor web.
 
+## Ejecutar en GitHub Codespaces
+
+El repositorio incluye `docker-compose.yml` y `.devcontainer/`. Al crear o reconstruir el Codespace, selecciona **Rebuild Container** si te solicita elegir una configuración. Se iniciarán automáticamente:
+
+- APIMAX en el puerto reenviado `8000`.
+- phpMyAdmin en el puerto reenviado `8080`.
+- MariaDB con el esquema `database/apimax.sql`.
+
+En el panel **Ports** de Codespaces, abre el puerto `8000`. phpMyAdmin usa el usuario `root` sin contraseña. Esta configuración es únicamente para el contenedor privado de desarrollo; no la uses para publicar el sistema en Internet.
+
+La base de datos se inicializa solo la primera vez que se crea el volumen. Para reiniciarla desde la terminal usa `docker compose down -v` y luego `docker compose up --build`.
+
 ## Cambios de seguridad y consistencia
 
 - Conexión PDO con consultas preparadas reales, `utf8mb4` y errores internos fuera de la respuesta pública.

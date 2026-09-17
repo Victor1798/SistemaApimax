@@ -1,0 +1,17 @@
+{
+  "name": "SistemaApimax",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/var/www/html",
+  "forwardPorts": [8000, 8080],
+  "portsAttributes": {
+    "8000": { "label": "APIMAX", "onAutoForward": "openBrowser" },
+    "8080": { "label": "phpMyAdmin", "onAutoForward": "notify" }
+  },
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": ["bmewburn.vscode-intelephense-client"]
+    }
+  }
+}

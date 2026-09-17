@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .devcontainer/php.Dockerfile
+    environment:
+      APIMAX_DB_HOST: db
+      APIMAX_DB_PORT: 3306
+      APIMAX_DB_NAME: apimax
+      APIMAX_DB_USER: root
+      APIMAX_DB_PASSWORD: ""
+      APIMAX_TIMEZONE: America/Mexico_City
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: mariadb:10.11
+    environment:
+      MARIADB_DATABASE: apimax
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: "yes"
+    volumes:
+      - apimax_db:/var/lib/mysql
+      - ./Inventario_apimax/database/apimax.sql:/docker-entrypoint-initdb.d/01-apimax.sql:ro
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  phpmyadmin:
+    image: phpmyadmin:5-apache
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "8080:80"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  apimax_db:
